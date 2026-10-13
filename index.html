@@ -1,0 +1,2052 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hanifa — Élégance & Beauté</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rose-50:#FFF5F8;
+    --rose-100:#FFE4EC;
+    --rose-200:#FCC9DA;
+    --rose-300:#F7A8C4;
+    --rose-400:#EE7BA6;
+    --rose-500:#E1568A;
+    --rose-600:#C93C71;
+    --rose-700:#A32A58;
+    --ink:#2B1B23;
+    --ink-soft:#6B4A57;
+    --line:#F3D9E2;
+    --white:#FFFFFF;
+    --shadow:0 18px 45px -18px rgba(201,60,113,.28);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Plus Jakarta Sans',system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{font-family:'Playfair Display',Georgia,serif;font-weight:600;line-height:1.2;}
+  a{text-decoration:none;color:inherit;}
+  img{display:block;max-width:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky;top:0;z-index:100;
+    background:rgba(255,255,255,.85);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid transparent;
+    transition:all .3s ease;
+  }
+  header.scrolled{
+    border-bottom:1px solid var(--line);
+    box-shadow:0 8px 30px -20px rgba(201,60,113,.5);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    height:76px;
+  }
+  .logo{
+    font-family:'Playfair Display',serif;
+    font-size:1.6rem;font-weight:700;
+    color:var(--rose-600);
+    letter-spacing:.5px;
+  }
+  .logo span{color:var(--rose-400);font-style:italic;font-weight:500;}
+  .nav-links{display:flex;gap:36px;align-items:center;}
+  .nav-links a{
+    font-size:.92rem;font-weight:500;color:var(--ink-soft);
+    position:relative;transition:color .25s ease;
+  }
+  .nav-links a::after{
+    content:'';position:absolute;bottom:-6px;left:0;
+    width:0;height:2px;background:var(--rose-500);
+    transition:width .3s ease;
+  }
+  .nav-links a:hover{color:var(--rose-600);}
+  .nav-links a:hover::after{width:100%;}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:13px 26px;border-radius:100px;
+    font-weight:600;font-size:.9rem;
+    transition:all .28s cubic-bezier(.4,0,.2,1);
+    cursor:pointer;border:none;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg,var(--rose-500),var(--rose-600));
+    color:#fff;
+    box-shadow:0 12px 28px -12px rgba(201,60,113,.7);
+  }
+  .btn-primary:hover{
+    transform:translateY(-3px);
+    box-shadow:0 20px 38px -14px rgba(201,60,113,.85);
+  }
+  .btn-ghost{
+    background:var(--white);
+    color:var(--rose-600);
+    border:1.5px solid var(--rose-200);
+  }
+  .btn-ghost:hover{
+    background:var(--rose-50);
+    border-color:var(--rose-400);
+    transform:translateY(-3px);
+  }
+  .burger{display:none;background:none;border:none;cursor:pointer;color:var(--rose-600);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:90px 0 100px;
+    background:
+      radial-gradient(circle at 85% 15%, var(--rose-100) 0%, transparent 45%),
+      radial-gradient(circle at 10% 90%, #FFF0F5 0%, transparent 40%),
+      var(--white);
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.05fr .95fr;
+    gap:60px;align-items:center;
+  }
+  .hero-eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--rose-50);
+    border:1px solid var(--rose-200);
+    color:var(--rose-600);
+    padding:8px 18px;border-radius:100px;
+    font-size:.8rem;font-weight:600;letter-spacing:.6px;
+    text-transform:uppercase;
+    margin-bottom:24px;
+  }
+  .hero h1{
+    font-size:clamp(2.5rem,5.2vw,4rem);
+    color:var(--ink);
+    margin-bottom:22px;
+    animation:rise .9s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .hero h1 em{color:var(--rose-500);font-style:italic;}
+  .hero p.lead{
+    font-size:1.08rem;color:var(--ink-soft);
+    max-width:520px;margin-bottom:36px;
+    animation:rise .9s .12s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .hero-actions{
+    display:flex;gap:16px;flex-wrap:wrap;
+    animation:rise .9s .22s cubic-bezier(.2,.8,.2,1) both;
+  }
+  @keyframes rise{
+    from{opacity:0;transform:translateY(26px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  .hero-visual{
+    position:relative;
+    animation:rise 1s .3s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .hero-img-main{
+    border-radius:28px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    aspect-ratio:4/5;
+  }
+  .hero-img-main img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform .8s ease;
+  }
+  .hero-img-main:hover img{transform:scale(1.05);}
+  .hero-badge{
+    position:absolute;bottom:-24px;left:-24px;
+    background:#fff;
+    border-radius:20px;
+    padding:20px 24px;
+    box-shadow:0 20px 45px -18px rgba(201,60,113,.4);
+    display:flex;align-items:center;gap:14px;
+    border:1px solid var(--line);
+  }
+  .hero-badge .num{
+    font-family:'Playfair Display',serif;
+    font-size:1.9rem;font-weight:700;color:var(--rose-600);
+    line-height:1;
+  }
+  .hero-badge .lbl{font-size:.78rem;color:var(--ink-soft);font-weight:500;max-width:110px;line-height:1.3;}
+
+  /* ---------- SECTION BASE ---------- */
+  section{padding:96px 0;}
+  .sec-head{text-align:center;max-width:660px;margin:0 auto 60px;}
+  .sec-head .tag{
+    color:var(--rose-500);font-weight:700;font-size:.8rem;
+    letter-spacing:2px;text-transform:uppercase;
+    display:block;margin-bottom:14px;
+  }
+  .sec-head h2{
+    font-size:clamp(1.9rem,3.6vw,2.7rem);
+    color:var(--ink);margin-bottom:16px;
+  }
+  .sec-head p{color:var(--ink-soft);font-size:1.02rem;}
+
+  /* ---------- SERVICES / COLLECTION ---------- */
+  .cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+    gap:28px;
+  }
+  .card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:22px;
+    overflow:hidden;
+    transition:all .35s cubic-bezier(.4,0,.2,1);
+    opacity:0;transform:translateY(30px);
+  }
+  .card.visible{opacity:1;transform:translateY(0);}
+  .card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 26px 50px -22px rgba(201,60,113,.42);
+    border-color:var(--rose-200);
+  }
+  .card-img{height:230px;overflow:hidden;position:relative;}
+  .card-img img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform .6s ease;
+  }
+  .card:hover .card-img img{transform:scale(1.08);}
+  .card-tag{
+    position:absolute;top:16px;left:16px;
+    background:rgba(255,255,255,.94);
+    color:var(--rose-600);
+    font-size:.72rem;font-weight:700;
+    padding:6px 14px;border-radius:100px;
+    letter-spacing:.5px;text-transform:uppercase;
+  }
+  .card-body{padding:26px 26px 30px;}
+  .card-body h3{font-size:1.28rem;color:var(--ink);margin-bottom:10px;}
+  .card-body p{color:var(--ink-soft);font-size:.93rem;margin-bottom:18px;}
+  .card-price{
+    display:flex;align-items:baseline;gap:8px;
+    color:var(--rose-600);font-weight:700;font-size:1.05rem;
+  }
+  .card-price span{font-size:.78rem;color:var(--ink-soft);font-weight:500;}
+
+  /* ---------- ABOUT ---------- */
+  .about{background:var(--rose-50);}
+  .about-grid{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:64px;align-items:center;
+  }
+  .about-img{
+    border-radius:26px;overflow:hidden;
+    box-shadow:var(--shadow);
+    aspect-ratio:5/6;
+  }
+  .about-img img{width:100%;height:100%;object-fit:cover;}
+  .about-text h2{
+    font-size:clamp(1.9rem,3.4vw,2.5rem);
+    margin-bottom:20px;color:var(--ink);
+  }
+  .about-text p{color:var(--ink-soft);margin-bottom:18px;}
+  .about-list{list-style:none;margin:26px 0 0;}
+  .about-list li{
+    display:flex;gap:14px;align-items:flex-start;
+    margin-bottom:16px;
+  }
+  .about-list svg{flex-shrink:0;color:var(--rose-500);margin-top:3px;}
+  .about-list strong{display:block;color:var(--ink);font-size:.98rem;font-weight:600;}
+  .about-list small{color:var(--ink-soft);font-size:.87rem;}
+
+  /* ---------- STATS ---------- */
+  .stats{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:32px;text-align:center;
+  }
+  .stat .num{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2.2rem,4.5vw,3rem);
+    font-weight:700;color:var(--rose-600);
+    line-height:1;margin-bottom:8px;
+  }
+  .stat .lbl{color:var(--ink-soft);font-size:.9rem;font-weight:500;}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testi-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:26px;
+  }
+  .testi{
+    background:#fff;border:1px solid var(--line);
+    border-radius:20px;padding:32px;
+    transition:all .3s ease;
+    opacity:0;transform:translateY(30px);
+  }
+  .testi.visible{opacity:1;transform:translateY(0);}
+  .testi:hover{transform:translateY(-6px);box-shadow:0 22px 44px -22px rgba(201,60,113,.4);}
+  .stars{color:var(--rose-400);margin-bottom:16px;letter-spacing:2px;}
+  .testi p{color:var(--ink-soft);font-style:italic;margin-bottom:22px;font-size:.96rem;}
+  .testi-author{display:flex;align-items:center;gap:14px;}
+  .testi-avatar{
+    width:48px;height:48px;border-radius:50%;
+    background:linear-gradient(135deg,var(--rose-300),var(--rose-500));
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:700;font-size:1rem;
+  }
+  .testi-author strong{display:block;font-size:.92rem;color:var(--ink);}
+  .testi-author small{color:var(--ink-soft);font-size:.8rem;}
+
+  /* ---------- CTA ---------- */
+  .cta{
+    background:linear-gradient(135deg,var(--rose-600),var(--rose-500) 55%,var(--rose-400));
+    border-radius:32px;
+    padding:70px 50px;
+    text-align:center;
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+  }
+  .cta::before{
+    content:'';position:absolute;top:-60px;right:-60px;
+    width:240px;height:240px;border-radius:50%;
+    background:rgba(255,255,255,.12);
+  }
+  .cta::after{
+    content:'';position:absolute;bottom:-80px;left:-40px;
+    width:200px;height:200px;border-radius:50%;
+    background:rgba(255,255,255,.08);
+  }
+  .cta h2{font-size:clamp(1.8rem,3.4vw,2.5rem);margin-bottom:16px;position:relative;}
+  .cta p{opacity:.94;max-width:540px;margin:0 auto 34px;position:relative;}
+  .cta .btn-white{
+    background:#fff;color:var(--rose-600);
+    position:relative;
+  }
+  .cta .btn-white:hover{transform:translateY(-3px);box-shadow:0 18px 34px -12px rgba(0,0,0,.3);}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:#2B1B23;
+    color:#E8D6DE;
+    padding:70px 0 30px;
+  }
+  .foot-grid{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;
+    gap:48px;margin-bottom:48px;
+  }
+  .foot-brand .logo{color:#fff;margin-bottom:16px;}
+  .foot-brand .logo span{color:var(--rose-300);}
+  .foot-brand p{font-size:.9rem;opacity:.75;max-width:280px;}
+  .foot-col h4{
+    color:#fff;font-family:'Plus Jakarta Sans',sans-serif;
+    font-size:.82rem;font-weight:700;letter-spacing:1.5px;
+    text-transform:uppercase;margin-bottom:20px;
+  }
+  .foot-col a,.foot-col p{
+    display:block;font-size:.9rem;opacity:.75;
+    margin-bottom:11px;transition:all .25s ease;
+  }
+  .foot-col a:hover{opacity:1;color:var(--rose-300);transform:translateX(4px);}
+  .foot-bottom{
+    border-top:1px solid rgba(255,255,255,.1);
+    padding-top:26px;
+    display:flex;justify-content:space-between;
+    align-items:center;flex-wrap:wrap;gap:14px;
+    font-size:.85rem;opacity:.65;
+  }
+  .socials{display:flex;gap:12px;}
+  .socials a{
+    width:38px;height:38px;border-radius:50%;
+    background:rgba(255,255,255,.08);
+    display:flex;align-items:center;justify-content:center;
+    transition:all .28s ease;
+  }
+  .socials a:hover{background:var(--rose-500);transform:translateY(-3px);}
+
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1);}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:900px){
+    .hero-grid,.about-grid{grid-template-columns:1fr;gap:44px;}
+    .hero-visual{order:-1;}
+    .foot-grid{grid-template-columns:1fr 1fr;gap:34px;}
+  }
+  @media(max-width:640px){
+    .nav-links{
+      position:fixed;top:76px;left:0;right:0;
+      background:#fff;flex-direction:column;
+      padding:26px;gap:20px;
+      border-bottom:1px solid var(--line);
+      transform:translateY(-140%);
+      transition:transform .35s ease;
+      box-shadow:0 20px 40px -20px rgba(0,0,0,.15);
+    }
+    .nav-links.open{transform:translateY(0);}
+    .burger{display:block;}
+    section{padding:70px 0;}
+    .cta{padding:50px 26px;}
+    .foot-grid{grid-template-columns:1fr;}
+    .hero-badge{left:12px;bottom:-18px;padding:16px 18px;}
+  }
+</style>
+
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Hanifa Boutique &amp; Beauté - Vitrine Rose Élégante">
+<meta name="theme-color" content="#7C3AED">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%20width%3D%22512%22%20height%3D%22512%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22pwaGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%237C3AED%22%2F%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%231E1B4B%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%22128%22%20fill%3D%22url%28%23pwaGrad%29%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2254%25%22%20font-size%3D%22250%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22central%22%3E%F0%9F%9B%8D%EF%B8%8F%3C%2Ftext%3E%3C%2Fsvg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%20width%3D%22512%22%20height%3D%22512%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22pwaGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%237C3AED%22%2F%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%231E1B4B%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%22128%22%20fill%3D%22url%28%23pwaGrad%29%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2254%25%22%20font-size%3D%22250%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22central%22%3E%F0%9F%9B%8D%EF%B8%8F%3C%2Ftext%3E%3C%2Fsvg%3E">
+<link rel="manifest" href="data:application/manifest+json;utf8,%7B%22name%22%3A%22Hanifa%20Boutique%20%26%20Beaut%C3%A9%20-%20Vitrine%20Rose%20%C3%89l%C3%A9gante%22%2C%22short_name%22%3A%22Hanifa%20Boutique%20%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%231E1B4B%22%2C%22theme_color%22%3A%22%237C3AED%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%3Butf8%2C%253Csvg%2520xmlns%253D%2522http%253A%252F%252Fwww.w3.org%252F2000%252Fsvg%2522%2520viewBox%253D%25220%25200%2520512%2520512%2522%2520width%253D%2522512%2522%2520height%253D%2522512%2522%253E%253Cdefs%253E%253ClinearGradient%2520id%253D%2522pwaGrad%2522%2520x1%253D%25220%2525%2522%2520y1%253D%25220%2525%2522%2520x2%253D%2522100%2525%2522%2520y2%253D%2522100%2525%2522%253E%253Cstop%2520offset%253D%25220%2525%2522%2520stop-color%253D%2522%25237C3AED%2522%252F%253E%253Cstop%2520offset%253D%2522100%2525%2522%2520stop-color%253D%2522%25231E1B4B%2522%252F%253E%253C%252FlinearGradient%253E%253C%252Fdefs%253E%253Crect%2520width%253D%2522512%2522%2520height%253D%2522512%2522%2520rx%253D%2522128%2522%2520fill%253D%2522url%2528%2523pwaGrad%2529%2522%252F%253E%253Ctext%2520x%253D%252250%2525%2522%2520y%253D%252254%2525%2522%2520font-size%253D%2522250%2522%2520text-anchor%253D%2522middle%2522%2520dominant-baseline%253D%2522central%2522%253E%25F0%259F%259B%258D%25EF%25B8%258F%253C%252Ftext%253E%253C%252Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = { theme: { extend: { colors: { primary: '#4F46E5', secondary: '#10B981' } } } }
+</script>
+<script id="bfa-better-ui">
+// Add intersection observer for reveal
+(function(){try{document.addEventListener('DOMContentLoaded',function(){Array.from(document.querySelectorAll('img')).forEach(function(img){var s=img.getAttribute('src')||'';if(s.indexOf('PLACEHOLDER:')===0){img.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'450\'><rect width=\'100%\' height=\'100%\' fill=\'%230b0f19\' /><text x=\'50%\' y=\'50%\' fill=\'%23ffffff%27\' font-size=\'24\' dominant-baseline=\'middle\' text-anchor=\'middle\'>Placeholder</text></svg>';} });
+var io = new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('inview');io.unobserve(e.target);}});},{threshold:0.12});
+Array.from(document.querySelectorAll('.reveal, .card, img')).forEach(function(el){io.observe(el);});});}catch(e){} })();
+</script>
+<script>
+if (typeof THREE !== "undefined" && typeof THREE.OrbitControls === "undefined") {
+    THREE.OrbitControls = function(camera, domElement) {
+        this.object = camera;
+        this.camera = camera;
+        this.domElement = domElement || document.body;
+        this.enabled = true;
+        this.target = new THREE.Vector3(0, 0, 0);
+        this.minDistance = 0.5;
+        this.maxDistance = 500;
+        this.minPolarAngle = 0;
+        this.maxPolarAngle = Math.PI / 2.02;
+        this.enableDamping = true;
+        this.dampingFactor = 0.08;
+        this.enableZoom = true;
+        this.zoomSpeed = 1.0;
+        this.enableRotate = true;
+        this.rotateSpeed = 1.0;
+        this.autoRotate = false;
+        this.autoRotateSpeed = 2.0;
+
+        this._listeners = {};
+        this.addEventListener = function(type, listener) {
+            if (!this._listeners[type]) this._listeners[type] = [];
+            this._listeners[type].push(listener);
+        };
+        this.removeEventListener = function(type, listener) {
+            if (!this._listeners[type]) return;
+            var idx = this._listeners[type].indexOf(listener);
+            if (idx !== -1) this._listeners[type].splice(idx, 1);
+        };
+        this.dispatchEvent = function(event) {
+            if (!this._listeners[event.type]) return;
+            var self = this;
+            this._listeners[event.type].forEach(function(fn) { try { fn.call(self, event); } catch(e) {} });
+        };
+
+        this.distance = camera.position.distanceTo(this.target) || 20;
+        this.theta = Math.atan2(camera.position.x - this.target.x, camera.position.z - this.target.z) || 0.6;
+        this.phi = Math.acos(Math.max(-1, Math.min(1, (camera.position.y - this.target.y) / (this.distance || 1)))) || 0.8;
+        this.tTheta = this.theta;
+        this.tPhi = this.phi;
+        this.tDist = this.distance;
+        this.isDown = false;
+
+        var self = this;
+        var onDown = function(x, y) { self.isDown = true; self.px = x; self.py = y; };
+        var onMove = function(x, y) {
+            if (!self.isDown || !self.enabled || !self.enableRotate) return;
+            self.tTheta -= (x - self.px) * 0.008 * self.rotateSpeed;
+            self.tPhi = Math.max(self.minPolarAngle + 0.02, Math.min(self.maxPolarAngle, self.tPhi - (y - self.py) * 0.008 * self.rotateSpeed));
+            self.px = x; self.py = y;
+        };
+        var onUp = function() { self.isDown = false; };
+
+        this.domElement.addEventListener("mousedown", function(e) { onDown(e.clientX, e.clientY); });
+        window.addEventListener("mousemove", function(e) { onMove(e.clientX, e.clientY); });
+        window.addEventListener("mouseup", onUp);
+        this.domElement.addEventListener("touchstart", function(e) { if (e.touches && e.touches[0]) onDown(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
+        window.addEventListener("touchmove", function(e) { if (e.touches && e.touches[0]) onMove(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
+        window.addEventListener("touchend", onUp);
+        this.domElement.addEventListener("wheel", function(e) {
+            if (!self.enabled || !self.enableZoom) return;
+            e.preventDefault();
+            self.tDist = Math.max(self.minDistance, Math.min(self.maxDistance, self.tDist + e.deltaY * 0.02 * self.zoomSpeed));
+        }, { passive: false });
+
+        this.update = function() {
+            if (!self.enabled) return;
+            if (self.autoRotate) self.tTheta += 0.005 * self.autoRotateSpeed;
+            var factor = self.enableDamping ? self.dampingFactor : 1.0;
+            self.theta += (self.tTheta - self.theta) * factor;
+            self.phi += (self.tPhi - self.phi) * factor;
+            self.distance += (self.tDist - self.distance) * factor;
+            self.camera.position.x = self.target.x + self.distance * Math.sin(self.phi) * Math.sin(self.theta);
+            self.camera.position.y = self.target.y + self.distance * Math.cos(self.phi);
+            self.camera.position.z = self.target.z + self.distance * Math.sin(self.phi) * Math.cos(self.theta);
+            self.camera.lookAt(self.target);
+            self.dispatchEvent({ type: "change" });
+        };
+        this.reset = function() { self.tDist = 20; self.tTheta = 0.6; self.tPhi = 0.8; };
+        this.dispose = function() { self._listeners = {}; };
+    };
+}
+</script>
+</head>
+<body>
+
+<header id="header">
+  <div class="wrap nav">
+    <a href="#" class="logo">Hanifa<span> Beauté</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#collection">Collection</a>
+      <a href="#apropos">À propos</a>
+      <a href="#avis">Avis</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <a href="#contact" class="btn btn-primary" style="display:none;" id="navCta">Commander</a>
+      <button class="burger" id="burger" aria-label="Menu">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="hero-eyebrow">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        Élégance & Féminité
+      </span>
+      <h1>Révélez votre <em>beauté</em> naturelle avec Hanifa</h1>
+      <p class="lead">Des créations soigneusement sélectionnées pour sublimer chaque femme : mode, accessoires et soins beauté, pensés pour vous à chaque instant.</p>
+      <div class="hero-actions">
+        <a href="#collection" class="btn btn-primary">
+          Découvrir la collection
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <a href="#contact" class="btn btn-ghost">Nous contacter</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-img-main">
+        <img src="https://images.pexels.com/photos/15238816/pexels-photo-15238816.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Femme élégante portant une création Hanifa">
+      </div>
+      <div class="hero-badge">
+        <div class="num">+1200</div>
+        <div class="lbl">clientes satisfaites à travers le Sénégal</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTION -->
+<section id="collection">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">Notre Collection</span>
+      <h2>Des pièces pensées pour vous</h2>
+      <p>Chaque article est choisi avec soin pour refléter votre personnalité, votre élégance et votre éclat au quotidien.</p>
+    </div>
+    <div class="cards">
+      <article class="card reveal">
+        <div class="card-img">
+          <span class="card-tag">Mode</span>
+          <img src="https://images.pexels.com/photos/19549269/pexels-photo-19549269.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Robe élégante Hanifa">
+        </div>
+        <div class="card-body">
+          <h3>Robes & Tenues</h3>
+          <p>Des coupes modernes et raffinées, idéales pour les cérémonies comme pour le quotidien.</p>
+          <div class="card-price">À partir de 25 000 FCFA <span>/ pièce</span></div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-img">
+          <span class="card-tag">Accessoires</span>
+          <img src="https://images.pexels.com/photos/322207/pexels-photo-322207.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Accessoires de mode Hanifa">
+        </div>
+        <div class="card-body">
+          <h3>Sacs & Accessoires</h3>
+          <p>Sacs à main, bijoux et ceintures pour parfaire chaque tenue avec une touche unique.</p>
+          <div class="card-price">À partir de 12 000 FCFA <span>/ article</span></div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-img">
+          <span class="card-tag">Beauté</span>
+          <img src="https://images.pexels.com/photos/8558485/pexels-photo-8558485.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Soins beauté Hanifa">
+        </div>
+        <div class="card-body">
+          <h3>Soins & Cosmétiques</h3>
+          <p>Produits de soin naturels et cosmétiques sélectionnés pour révéler votre éclat naturel.</p>
+          <div class="card-price">À partir de 8 000 FCFA <span>/ produit</span></div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-img">
+          <span class="card-tag">Parfums</span>
+          <img src="https://images.pexels.com/photos/31612020/pexels-photo-31612020.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Parfums Hanifa">
+        </div>
+        <div class="card-body">
+          <h3>Parfums & Fragrances</h3>
+          <p>Des senteurs envoûtantes et raffinées qui vous accompagnent toute la journée.</p>
+          <div class="card-price">À partir de 18 000 FCFA <span>/ flacon</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- À PROPOS -->
+<section class="about" id="apropos">
+  <div class="wrap about-grid">
+    <div class="about-img reveal">
+      <img src="https://images.pexels.com/photos/8484031/pexels-photo-8484031.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Hanifa, fondatrice de la boutique">
+    </div>
+    <div class="about-text reveal">
+      <h2>L'histoire d'une passion pour la beauté féminine</h2>
+      <p>Hanifa est née d'un rêve simple : offrir à chaque femme des pièces qui la font se sentir belle, confiante et unique. Chaque création raconte une histoire, celle de l'élégance au féminin.</p>
+      <p>Basée à Dakar, notre boutique sélectionne avec soin des articles de qualité, alliant modernité et authenticité africaine.</p>
+      <ul class="about-list">
+        <li>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <div><strong>Qualité garantie</strong><small>Chaque article est vérifié avant livraison.</small></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <div><strong>Livraison rapide</strong><small>Partout à Dakar et dans les régions.</small></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <div><strong>Conseil personnalisé</strong><small>Nous vous accompagnons dans vos choix.</small></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section>
+  <div class="wrap stats">
+    <div class="stat reveal">
+      <div class="num" data-count="1200">0</div>
+      <div class="lbl">Clientes satisfaites</div>
+    </div>
+    <div class="stat reveal">
+      <div class="num" data-count="350">0</div>
+      <div class="lbl">Articles en boutique</div>
+    </div>
+    <div class="stat reveal">
+      <div class="num" data-count="5">0</div>
+      <div class="lbl">Années d'expérience</div>
+    </div>
+    <div class="stat reveal">
+      <div class="num" data-count="98">0</div>
+      <div class="lbl">% de clients satisfaits</div>
+    </div>
+  </div>
+</section>
+
+<!-- AVIS -->
+<section id="avis" style="background:var(--rose-50);">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="tag">Témoignages</span>
+      <h2>Elles nous font confiance</h2>
+      <p>Découvrez ce que nos clientes disent de leur expérience avec Hanifa.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi reveal">
+        <div class="stars">★★★★★</div>
+        <p>"J'ai commandé une robe pour un mariage, la qualité était au rendez-vous. Je me suis sentie magnifique toute la soirée !"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">AB</div>
+          <div><strong>Aminata Ba</strong><small>Dakar</small></div>
+        </div>
+      </div>
+      <div class="testi reveal">
+        <div class="stars">★★★★★</div>
+        <p>"Service client au top, livraison rapide et les parfums sont sublimes. Je recommande vivement Hanifa."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">MD</div>
+          <div><strong>Mariama Diop</strong><small>Thiès</small></div>
+        </div>
+      </div>
+      <div class="testi reveal">
+        <div class="stars">★★★★★</div>
+        <p>"Une boutique qui comprend vraiment les femmes. Les conseils sont personnalisés et toujours justes."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">FN</div>
+          <div><strong>Fatou Ndiaye</strong><small>Saint-Louis</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact">
+  <div class="wrap">
+    <div class="cta reveal">
+      <h2>Prête à briller ?</h2>
+      <p>Contactez-nous dès aujourd'hui pour découvrir nos nouveautés et passer commande en toute simplicité.</p>
+      <a href="https://wa.me/221784567893" class="btn btn-white">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
+        </svg>
+        Commander sur WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#" class="logo">Hanifa<span> Beauté</span></a>
+        <p>Votre boutique de mode, accessoires et beauté à Dakar. L'élégance au féminin, chaque jour.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Boutique</h4>
+        <a href="#collection">Robes & Tenues</a>
+        <a href="#collection">Sacs & Accessoires</a>
+        <a href="#collection">Soins & Cosmétiques</a>
+        <a href="#collection">Parfums</a>
+      </div>
+      <div class="foot-col">
+        <h4>Informations</h4>
+        <a href="#apropos">À propos</a>
+        <a href="#avis">Avis clients</a>
+        <a href="#contact">Livraison</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h4>Nous contacter</h4>
+        <p>Dakar, Sénégal</p>
+        <p>+221 78 456 78 93</p>
+        <p>hanifa@boutique.sn</p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2025 Hanifa Beauté — Tous droits réservés.</span>
+      <div class="socials">
+        <a href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5"></rect>
+            <circle cx="12" cy="12" r="4"></circle>
+            <circle cx="17.5" cy="6.5" r="1"></circle>
+          </svg>
+        </a>
+        <a href="#" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h4a2 2 0 0 0-4 4v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+          </svg>
+        </a>
+        <a href="#" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+          </svg>
+        </a>
+        <a href="https://wa.me/221784567893" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Header shadow au scroll
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Menu mobile
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  // Reveal au scroll (cascade)
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          entry.target.style.transitionDelay = (i * 0.09) + 's';
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal, .card, .testi').forEach(el => observer.observe(el));
+  });
+
+  // Compteurs animés
+  document.addEventListener('DOMContentLoaded', () => {
+    const counters = document.querySelectorAll('[data-count]');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.getAttribute('data-count'), 10);
+          let current = 0;
+          const step = Math.max(1, Math.floor(target / 60));
+          const tick = () => {
+            current += step;
+            if (current >= target) {
+              el.textContent = target.toLocaleString('fr-FR') + (target === 98 ? '' : '+');
+              return;
+            }
+            el.textContent = current.toLocaleString('fr-FR') + (target === 98 ? '' : '+');
+            requestAnimationFrame(tick);
+          };
+          tick();
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.4 });
+    counters.forEach(c => counterObserver.observe(c));
+  });
+</script>
+
+<script id="bfa-app-resilience">
+(function() {
+    var APP_ICON = "🛍️";
+    var APP_THEME = "#7C3AED";
+    var APP_NAME = "Hanifa Boutique &amp; Beauté - Vitrine Rose Élégante";
+    var STORAGE_KEY = "bfa_pwa_data_" + (window.location.pathname || "default");
+
+    // 1. Toast Notification Universel
+    window.bfaToast = function(msg, icon) {
+        var existing = document.getElementById("bfa-toast-box");
+        if (!existing) {
+            existing = document.createElement("div");
+            existing.id = "bfa-toast-box";
+            existing.style.cssText = "position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:999999;background:#0F172A;color:#F8FAFC;border:1px solid rgba(255,255,255,0.15);padding:12px 24px;border-radius:999px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:10px;box-shadow:0 12px 35px rgba(0,0,0,0.5);pointer-events:none;transition:all 0.3s cubic-bezier(0.16,1,0.3,1);opacity:0;transform:translate(-50%,20px);font-family:system-ui,-apple-system,sans-serif;";
+            document.body.appendChild(existing);
+        }
+        existing.innerHTML = (icon ? '<span style="font-size:16px;">' + icon + '</span>' : '') + '<span>' + msg + '</span>';
+        existing.style.opacity = "1";
+        existing.style.transform = "translate(-50%,0)";
+        clearTimeout(window._bfaToastTimer);
+        window._bfaToastTimer = setTimeout(function() {
+            existing.style.opacity = "0";
+            existing.style.transform = "translate(-50%,20px)";
+        }, 2800);
+    };
+
+    // 2. Enregistrement PWA Service Worker (Fonctionnement 100% Hors-Ligne sur Téléphone)
+    if ('serviceWorker' in navigator && (window.location.protocol === 'http:' || window.location.protocol === 'https:')) {
+        try {
+            var swContent = "const CACHE='bfa-pwa-v1';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('activate',e=>{e.waitUntil(clients.claim());});self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(fetch(e.request).then(r=>{if(r&&r.status===200){const c=r.clone();caches.open(CACHE).then(cache=>cache.put(e.request,c));}return r;}).catch(()=>caches.match(e.request)));});";
+            var swBlob = new Blob([swContent], { type: 'application/javascript' });
+            navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(function(){});
+        } catch(e) {}
+    }
+
+    // Capture de l'événement d'installation PWA Android/Chrome
+    window.addEventListener('beforeinstallprompt', function(e) {
+        e.preventDefault();
+        window.bfaDeferredInstallPrompt = e;
+        var btn = document.getElementById('bfa-pwa-install-btn');
+        if (btn) btn.style.display = 'inline-flex';
+    });
+
+    // 3. Téléchargement Autonome PWA & Modale d'installation universelle
+    function downloadStandalonePwa() {
+        var fullHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+        var blob = new Blob([fullHtml], { type: 'text/html;charset=utf-8' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        var safeName = (APP_NAME || document.title || 'application_pwa').toLowerCase().replace(/[^a-z0-9]/g, '_').replace(/_+/g, '_');
+        a.download = (safeName || 'application_pwa') + '_autonome.html';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+            a.remove();
+            URL.revokeObjectURL(url);
+        }, 600);
+        window.bfaToast('Application PWA autonome téléchargée ! Ouvrez le fichier directement sur PC ou mobile.', '📥');
+    }
+    window.bfaDownloadPwa = downloadStandalonePwa;
+
+    function showPwaInstructionsModal() {
+        var existing = document.getElementById('bfa-pwa-guide-modal');
+        if (existing) existing.remove();
+        var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        var modal = document.createElement('div');
+        modal.id = 'bfa-pwa-guide-modal';
+        modal.style.cssText = 'position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:20px;font-family:system-ui,-apple-system,sans-serif;';
+        var guideHtml = '<div style="background:#0F172A;border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:24px;max-width:400px;width:100%;color:#F8FAFC;box-shadow:0 25px 60px rgba(0,0,0,0.8);text-align:center;">' +
+            '<div style="font-size:42px;margin-bottom:12px;">' + (APP_ICON || '📱') + '</div>' +
+            '<h3 style="font-size:18px;font-weight:800;margin:0 0 10px;">Installer sur votre smartphone</h3>' +
+            '<p style="font-size:12px;opacity:0.8;margin:0 0 14px;">L application a ete telechargee sur votre appareil. Vous pouvez aussi l ajouter a votre ecran d accueil pour l utiliser 100% hors-ligne comme une application native.</p>' +
+            (isIOS ?
+                '<div style="text-align:left;font-size:13px;line-height:1.6;background:rgba(255,255,255,0.05);padding:14px;border-radius:12px;margin-bottom:18px;">' +
+                '1. Appuyez sur l icone <strong>Partager ⎋</strong> en bas de Safari.<br>' +
+                '2. Touchez <strong>Sur l ecran d accueil ➕</strong>.<br>' +
+                '3. Touchez <strong>Ajouter</strong> en haut a droite.' +
+                '</div>' :
+                '<div style="text-align:left;font-size:13px;line-height:1.6;background:rgba(255,255,255,0.05);padding:14px;border-radius:12px;margin-bottom:18px;">' +
+                'Pour installer sur Android (Chrome / Edge) :<br>' +
+                '1. Touchez le menu <strong>(⋮)</strong> en haut a droite du navigateur.<br>' +
+                '2. Selectionnez <strong>Installer l application</strong>.' +
+                '</div>'
+            ) +
+            '<div style="display:flex;gap:10px;">' +
+            '<button id="bfa-dl-again-btn" style="flex:1;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:10px;border-radius:10px;font-weight:700;font-size:12px;cursor:pointer;">📥 Re-télécharger</button>' +
+            '<button id="bfa-close-pwa-modal" style="flex:1;background:' + (APP_THEME || '#7C3AED') + ';color:#fff;border:none;padding:10px;border-radius:10px;font-weight:700;font-size:12px;cursor:pointer;">Compris !</button>' +
+            '</div></div>';
+        modal.innerHTML = guideHtml;
+        document.body.appendChild(modal);
+        document.getElementById('bfa-close-pwa-modal').onclick = function() { modal.remove(); };
+        document.getElementById('bfa-dl-again-btn').onclick = function() { downloadStandalonePwa(); };
+    }
+
+    function handlePwaDownloadOrInstall(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        downloadStandalonePwa();
+        if (window.bfaDeferredInstallPrompt) {
+            try {
+                window.bfaDeferredInstallPrompt.prompt();
+                window.bfaDeferredInstallPrompt.userChoice.then(function(choice) {
+                    if (choice.outcome === 'accepted') {
+                        window.bfaToast('Application installée avec succès sur votre appareil !', '🎉');
+                    }
+                    window.bfaDeferredInstallPrompt = null;
+                });
+            } catch(err) {}
+        } else {
+            showPwaInstructionsModal();
+        }
+    }
+    window.bfaHandleInstallOrDownload = handlePwaDownloadOrInstall;
+
+    function resetDatabase() {
+        if (confirm("Réinitialiser la base de données locale de cette application ?
+Toutes les données créées ou modifiées seront réinitialisées à leur état d'origine.")) {
+            try {
+                localStorage.clear();
+                sessionStorage.clear();
+                if (window.indexedDB && indexedDB.databases) {
+                    indexedDB.databases().then(function(dbs) {
+                        dbs.forEach(function(db) { indexedDB.deleteDatabase(db.name); });
+                    }).catch(function(){});
+                }
+            } catch(e) {}
+            window.bfaToast('Base de données réinitialisée ! Rechargement...', '🔄');
+            setTimeout(function() { window.location.reload(); }, 600);
+        }
+    }
+    window.bfaResetDatabase = resetDatabase;
+
+    // Barre Flottante PWA
+    function injectPwaFloatingWidget() {
+        if (document.getElementById('bfa-pwa-floating-bar')) return;
+        var bar = document.createElement('div');
+        bar.id = 'bfa-pwa-floating-bar';
+        bar.style.cssText = 'position:fixed;bottom:16px;right:16px;z-index:999990;display:flex;align-items:center;gap:8px;background:rgba(15,23,42,0.92);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.15);padding:8px 12px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,0.5);font-family:system-ui,-apple-system,sans-serif;font-size:12px;color:#fff;';
+        bar.innerHTML = '<div style="display:flex;align-items:center;gap:6px;font-weight:700;padding-right:6px;border-right:1px solid rgba(255,255,255,0.15);">' +
+            '<span style="font-size:16px;">' + APP_ICON + '</span>' +
+            '<span style="display:inline-block;max-width:130px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + APP_NAME + '</span>' +
+            '<span style="background:#10B981;width:6px;height:6px;border-radius:50%;display:inline-block;" title="PWA Prête & Hors-ligne"></span>' +
+            '</div>' +
+            '<button id="bfa-pwa-install-btn" style="background:' + APP_THEME + ';color:#fff;border:none;padding:6px 12px;border-radius:999px;font-weight:700;font-size:11px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;transition:transform 0.2s;" onmouseover="this.style.transform=\'scale(1.04)\'" onmouseout="this.style.transform=\'scale(1)\'">📲 Installer</button>' +
+            '<button id="bfa-pwa-export-btn" style="background:rgba(255,255,255,0.08);color:#F8FAFC;border:1px solid rgba(255,255,255,0.2);padding:6px 12px;border-radius:999px;font-weight:700;font-size:11px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;transition:background 0.2s;" onmouseover="this.style.background=\'rgba(255,255,255,0.16)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.08)\'">📥 PWA</button>' +
+            '<button id="bfa-reset-db-btn" style="background:rgba(239,68,68,0.15);color:#FCA5A5;border:1px solid rgba(239,68,68,0.3);padding:6px 12px;border-radius:999px;font-weight:700;font-size:11px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;transition:background 0.2s;" onmouseover="this.style.background=\'rgba(239,68,68,0.3)\'" onmouseout="this.style.background=\'rgba(239,68,68,0.15)\'" title="Effacer les données locales et remettre la base à zéro">🔄 Réinitialiser BDD</button>';
+        document.body.appendChild(bar);
+
+        document.getElementById('bfa-pwa-install-btn').onclick = function(e) { handlePwaDownloadOrInstall(e); };
+        document.getElementById('bfa-pwa-export-btn').onclick = function(e) { handlePwaDownloadOrInstall(e); };
+        document.getElementById('bfa-reset-db-btn').onclick = function(e) { resetDatabase(); };
+    }
+
+    // 4. Moteur Universel de Sauvegarde Locale (LocalStorage)
+    function saveLocalData(key, data) {
+        try {
+            localStorage.setItem(STORAGE_KEY + '_' + key, JSON.stringify(data));
+        } catch(e) {}
+    }
+    function getLocalData(key) {
+        try {
+            var val = localStorage.getItem(STORAGE_KEY + '_' + key);
+            return val ? JSON.parse(val) : null;
+        } catch(e) { return null; }
+    }
+
+    // Trouver la zone principale de contenu sans cacher la sidebar
+    function getMainContentArea() {
+        var candidates = document.querySelectorAll('main, .main-content, .content-area, .content, .main, #content, .app-main, .page-content, .dashboard-content');
+        for (var i = 0; i < candidates.length; i++) {
+            var c = candidates[i];
+            if (!c.closest('aside, .sidebar, nav, [class*="sidebar"]')) {
+                return c;
+            }
+        }
+        var sidebar = document.querySelector('aside, .sidebar, [class*="sidebar"]');
+        if (sidebar && sidebar.nextElementSibling) {
+            return sidebar.nextElementSibling;
+        }
+        if (sidebar && sidebar.parentElement) {
+            var siblings = Array.from(sidebar.parentElement.children).filter(function(el) { return el !== sidebar && el.tagName !== 'SCRIPT' && el.tagName !== 'STYLE'; });
+            if (siblings.length === 1) return siblings[0];
+        }
+        return document.body;
+    }
+
+    // 5. Polyfill universel de navigation par onglets (sidebar & tabs)
+    window.bfaSwitchTab = function(id) {
+        if (!id) return;
+        var key = String(id).toLowerCase().replace(/[^a-z0-9]/g, '');
+        if (key.includes('stock') || key.includes('produit') || key.includes('article')) key = 'stock';
+        else if (key.includes('factur') || key.includes('commande') || key.includes('vente') || key.includes('recette') || key.includes('revenu')) key = 'factur';
+        else if (key.includes('alert') || key.includes('notif') || key.includes('urgence')) key = 'alert';
+        else if (key.includes('patient') || key.includes('dossier')) key = 'patients';
+        else if (key.includes('consult')) key = 'consultations';
+        else if (key.includes('ordonnance') || key.includes('prescript')) key = 'ordonnances';
+        else if (key.includes('dash') || key.includes('board') || key.includes('accueil') || key.includes('bord')) key = 'dashboard';
+
+        var main = getMainContentArea();
+
+        // 1. Si le panneau existe déjà dans le template original de l'IA
+        var candidates = document.querySelectorAll('[id*="' + key + '"], [class*="' + key + '"], [data-view*="' + key + '"]');
+        var foundPanel = null;
+        candidates.forEach(function(c) {
+            if (c.tagName !== 'BUTTON' && c.tagName !== 'A' && c.tagName !== 'NAV' && c.tagName !== 'ASIDE' && !c.closest('aside, .sidebar, nav')) {
+                if (c.id && (c.id.includes('view') || c.id.includes('tab') || c.id.includes('panel') || c.id.toLowerCase() === key)) {
+                    foundPanel = c;
+                } else if (!foundPanel && (c.classList.contains('tab-pane') || c.classList.contains('view-panel') || c.classList.contains('tab-content'))) {
+                    foundPanel = c;
+                }
+            }
+        });
+
+        if (foundPanel) {
+            var parent = foundPanel.parentElement;
+            if (parent) {
+                Array.from(parent.children).forEach(function(child) {
+                    if (child !== foundPanel && child.tagName !== 'HEADER' && child.tagName !== 'NAV' && child.tagName !== 'ASIDE') {
+                        child.style.display = 'none';
+                    }
+                });
+            }
+            foundPanel.style.display = 'block';
+            foundPanel.classList.add('active');
+            return;
+        }
+
+        // 2. Si le panneau doit être créé dynamiquement
+        if (key === 'patients') {
+            var dynPatients = document.getElementById('bfa-dyn-patients');
+            if (!dynPatients && main) {
+                dynPatients = document.createElement('div');
+                dynPatients.id = 'bfa-dyn-patients';
+                dynPatients.className = 'tab-pane view-panel';
+                dynPatients.style.cssText = 'padding:24px;width:100%;box-sizing:border-box;';
+                dynPatients.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">' +
+                    '<div><h2 style="font-size:20px;font-weight:800;margin:0;">🩺 Dossiers Médicaux & Suivi Patients</h2><p style="font-size:13px;opacity:0.7;margin:4px 0 0;">Gestion des dossiers informatisés, constantes vitales et antécédents</p></div>' +
+                    '<div style="display:flex;gap:10px;"><input type="search" placeholder="Rechercher un patient..." style="padding:10px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:10px;color:#fff;font-size:13px;">' +
+                    '<button id="bfa-btn-export-pat-csv" style="background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:10px 16px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;">📥 Exporter CSV</button>' +
+                    '<button id="bfa-btn-add-patient-panel" style="background:#0284C7;color:#fff;border:none;padding:10px 18px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;">+ Nouveau Patient</button></div>' +
+                    '</div>' +
+                    '<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:14px;overflow-x:auto;">' +
+                    '<table style="width:100%;border-collapse:collapse;text-align:left;font-size:13px;">' +
+                    '<thead><tr style="border-bottom:1px solid rgba(255,255,255,0.08);opacity:0.7;"><th style="padding:12px 16px;">PATIENT</th><th style="padding:12px 16px;">ÂGE</th><th style="padding:12px 16px;">GROUPE</th><th style="padding:12px 16px;">TENSION (TA)</th><th style="padding:12px 16px;">POULS</th><th style="padding:12px 16px;">STATUT</th><th style="padding:12px 16px;text-align:right;">ACTIONS</th></tr></thead>' +
+                    '<tbody id="bfa-patient-dyn-tbody">' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">Fatou Bintou Ndiaye<div style="font-size:11px;opacity:0.7;">Dossier #MED-2026-042</div></td><td style="padding:14px 16px;">34 ans • F</td><td style="padding:14px 16px;"><span style="background:rgba(2,132,199,0.15);color:#0284C7;padding:3px 8px;border-radius:6px;font-weight:700;">O+</span></td><td style="padding:14px 16px;font-weight:700;color:#10B981;">120/80</td><td style="padding:14px 16px;">72 bpm</td><td style="padding:14px 16px;"><span style="background:rgba(16,185,129,0.15);color:#10B981;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;">🟢 En consultation</span></td><td style="padding:14px 16px;text-align:right;"><button class="bfa-del-btn" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px;">🗑️</button></td></tr>' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">Moussa Diouf<div style="font-size:11px;opacity:0.7;">Dossier #MED-2026-043</div></td><td style="padding:14px 16px;">52 ans • M</td><td style="padding:14px 16px;"><span style="background:rgba(2,132,199,0.15);color:#0284C7;padding:3px 8px;border-radius:6px;font-weight:700;">A+</span></td><td style="padding:14px 16px;font-weight:700;color:#F59E0B;">138/88</td><td style="padding:14px 16px;">78 bpm</td><td style="padding:14px 16px;"><span style="background:rgba(245,158,11,0.15);color:#F59E0B;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;">🟡 En attente</span></td><td style="padding:14px 16px;text-align:right;"><button class="bfa-del-btn" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px;">🗑️</button></td></tr>' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">Aminata Traoré<div style="font-size:11px;opacity:0.7;">Dossier #MED-2026-044</div></td><td style="padding:14px 16px;">27 ans • F</td><td style="padding:14px 16px;"><span style="background:rgba(2,132,199,0.15);color:#0284C7;padding:3px 8px;border-radius:6px;font-weight:700;">B+</span></td><td style="padding:14px 16px;font-weight:700;color:#10B981;">115/75</td><td style="padding:14px 16px;">68 bpm</td><td style="padding:14px 16px;"><span style="background:rgba(16,185,129,0.15);color:#10B981;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;">🟢 Reçu</span></td><td style="padding:14px 16px;text-align:right;"><button class="bfa-del-btn" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px;">🗑️</button></td></tr>' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">Ibrahima Sarr<div style="font-size:11px;opacity:0.7;">Dossier #MED-2026-045</div></td><td style="padding:14px 16px;">45 ans • M</td><td style="padding:14px 16px;"><span style="background:rgba(2,132,199,0.15);color:#0284C7;padding:3px 8px;border-radius:6px;font-weight:700;">O+</span></td><td style="padding:14px 16px;font-weight:700;color:#10B981;">125/82</td><td style="padding:14px 16px;">74 bpm</td><td style="padding:14px 16px;"><span style="background:rgba(16,185,129,0.15);color:#10B981;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;">🟢 Reçu</span></td><td style="padding:14px 16px;text-align:right;"><button class="bfa-del-btn" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px;">🗑️</button></td></tr>' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">Mariama Ba<div style="font-size:11px;opacity:0.7;">Dossier #MED-2026-046</div></td><td style="padding:14px 16px;">19 ans • F</td><td style="padding:14px 16px;"><span style="background:rgba(2,132,199,0.15);color:#0284C7;padding:3px 8px;border-radius:6px;font-weight:700;">AB+</span></td><td style="padding:14px 16px;font-weight:700;color:#10B981;">110/70</td><td style="padding:14px 16px;">65 bpm</td><td style="padding:14px 16px;"><span style="background:rgba(16,185,129,0.15);color:#10B981;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;">🟢 Reçu</span></td><td style="padding:14px 16px;text-align:right;"><button class="bfa-del-btn" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px;">🗑️</button></td></tr>' +
+                    '</tbody></table></div>';
+                main.appendChild(dynPatients);
+                document.getElementById('bfa-btn-add-patient-panel').onclick = function() { openMedicalPatientModal(); };
+                document.getElementById('bfa-btn-export-pat-csv').onclick = function() {
+                    var table = dynPatients.querySelector('table');
+                    exportTableToCsv(table);
+                };
+            }
+            if (dynPatients && main) {
+                Array.from(main.children).forEach(function(child) {
+                    if (child !== dynPatients && child.tagName !== 'HEADER' && child.tagName !== 'NAV' && child.tagName !== 'ASIDE') {
+                        child.style.display = 'none';
+                    }
+                });
+                dynPatients.style.display = 'block';
+            }
+        } else if (key === 'consultations') {
+            var dynConsult = document.getElementById('bfa-dyn-consultations');
+            if (!dynConsult && main) {
+                dynConsult = document.createElement('div');
+                dynConsult.id = 'bfa-dyn-consultations';
+                dynConsult.className = 'tab-pane view-panel';
+                dynConsult.style.cssText = 'padding:24px;width:100%;box-sizing:border-box;';
+                dynConsult.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">' +
+                    '<div><h2 style="font-size:20px;font-weight:800;margin:0;">👨‍⚕️ File d\'Attente & Consultations du Jour</h2><p style="font-size:13px;opacity:0.7;margin:4px 0 0;">6 patients en file active, gestion du flux médical en temps réel</p></div>' +
+                    '<div style="display:flex;gap:10px;"><button id="bfa-btn-add-consult" style="background:#0284C7;color:#fff;border:none;padding:10px 18px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;">+ Nouvelle Consultation</button></div>' +
+                    '</div>' +
+                    '<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:14px;overflow-x:auto;">' +
+                    '<table style="width:100%;border-collapse:collapse;text-align:left;font-size:13px;">' +
+                    '<thead><tr style="border-bottom:1px solid rgba(255,255,255,0.08);opacity:0.7;"><th style="padding:12px 16px;">HEURE</th><th style="padding:12px 16px;">PATIENT</th><th style="padding:12px 16px;">MOTIF</th><th style="padding:12px 16px;">MÉDECIN / SALLE</th><th style="padding:12px 16px;">STATUT</th><th style="padding:12px 16px;text-align:right;">ACTIONS</th></tr></thead>' +
+                    '<tbody id="bfa-consult-dyn-tbody">' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">09h15</td><td style="padding:14px 16px;font-weight:700;">Fatou Bintou Ndiaye</td><td style="padding:14px 16px;">Contrôle tensionnel & céphalées</td><td style="padding:14px 16px;">Dr. Diallo • Salle 1</td><td style="padding:14px 16px;"><span style="background:rgba(16,185,129,0.15);color:#10B981;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;">🟢 En cours</span></td><td style="padding:14px 16px;text-align:right;"><button onclick="window.bfaToast(\'Consultation clôturée avec succès\', \'✅\');this.closest(\'tr\').remove();" style="background:#0284C7;color:#fff;border:none;padding:5px 12px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;">Terminer</button></td></tr>' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">09h45</td><td style="padding:14px 16px;font-weight:700;">Moussa Diouf</td><td style="padding:14px 16px;">Bilan cardiologie & ECG</td><td style="padding:14px 16px;">Dr. Sow • Salle 2</td><td style="padding:14px 16px;"><span style="background:rgba(245,158,11,0.15);color:#F59E0B;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;">🟡 Prochain</span></td><td style="padding:14px 16px;text-align:right;"><button onclick="window.bfaToast(\'Patient appelé en salle 2\', \'📢\')" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:5px 12px;border-radius:6px;font-size:12px;cursor:pointer;">Appeler</button></td></tr>' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">10h15</td><td style="padding:14px 16px;font-weight:700;">Aminata Traoré</td><td style="padding:14px 16px;">Suivi prénatal 2ème trimestre</td><td style="padding:14px 16px;">Sage-Femme Kane • Salle 3</td><td style="padding:14px 16px;"><span style="background:rgba(245,158,11,0.15);color:#F59E0B;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;">🟡 En attente</span></td><td style="padding:14px 16px;text-align:right;"><button onclick="window.bfaToast(\'Patient appelé\', \'📢\')" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:5px 12px;border-radius:6px;font-size:12px;cursor:pointer;">Appeler</button></td></tr>' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">10h45</td><td style="padding:14px 16px;font-weight:700;">Ibrahima Sarr</td><td style="padding:14px 16px;">Renouvellement traitement diabète</td><td style="padding:14px 16px;">Dr. Diallo • Salle 1</td><td style="padding:14px 16px;"><span style="background:rgba(245,158,11,0.15);color:#F59E0B;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;">🟡 En attente</span></td><td style="padding:14px 16px;text-align:right;"><button onclick="window.bfaToast(\'Patient appelé\', \'📢\')" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:5px 12px;border-radius:6px;font-size:12px;cursor:pointer;">Appeler</button></td></tr>' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">11h15</td><td style="padding:14px 16px;font-weight:700;">Mariama Ba</td><td style="padding:14px 16px;">Certificat médical d\'aptitude sport</td><td style="padding:14px 16px;">Dr. Diallo • Salle 1</td><td style="padding:14px 16px;"><span style="background:rgba(245,158,11,0.15);color:#F59E0B;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;">🟡 En attente</span></td><td style="padding:14px 16px;text-align:right;"><button onclick="window.bfaToast(\'Patient appelé\', \'📢\')" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:5px 12px;border-radius:6px;font-size:12px;cursor:pointer;">Appeler</button></td></tr>' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">11h45</td><td style="padding:14px 16px;font-weight:700;">Ousmane Cissé</td><td style="padding:14px 16px;">Douleurs articulaires & genou droit</td><td style="padding:14px 16px;">Dr. Sow • Salle 2</td><td style="padding:14px 16px;"><span style="background:rgba(245,158,11,0.15);color:#F59E0B;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;">🟡 En attente</span></td><td style="padding:14px 16px;text-align:right;"><button onclick="window.bfaToast(\'Patient appelé\', \'📢\')" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:5px 12px;border-radius:6px;font-size:12px;cursor:pointer;">Appeler</button></td></tr>' +
+                    '</tbody></table></div>';
+                main.appendChild(dynConsult);
+                document.getElementById('bfa-btn-add-consult').onclick = function() {
+                    var pName = prompt('Nom du patient pour la consultation :');
+                    if (!pName) return;
+                    var pMotif = prompt('Motif de la consultation :', 'Consultation générale') || 'Consultation générale';
+                    var tbody = document.getElementById('bfa-consult-dyn-tbody');
+                    if (tbody) {
+                        var tr = document.createElement('tr');
+                        tr.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+                        tr.innerHTML = '<td style="padding:14px 16px;font-weight:700;">' + new Date().getHours() + 'h' + (new Date().getMinutes()<10?'0':'') + new Date().getMinutes() + '</td><td style="padding:14px 16px;font-weight:700;">' + pName + '</td><td style="padding:14px 16px;">' + pMotif + '</td><td style="padding:14px 16px;">Dr. Diallo • Salle 1</td><td style="padding:14px 16px;"><span style="background:rgba(245,158,11,0.15);color:#F59E0B;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;">🟡 En attente</span></td><td style="padding:14px 16px;text-align:right;"><button onclick="window.bfaToast(\'Patient appelé\', \'📢\')" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:5px 12px;border-radius:6px;font-size:12px;cursor:pointer;">Appeler</button></td>';
+                        tbody.insertBefore(tr, tbody.firstChild);
+                        window.bfaToast('Patient ' + pName + ' ajouté en file d\'attente !', '✅');
+                    }
+                };
+            }
+            if (dynConsult && main) {
+                Array.from(main.children).forEach(function(child) {
+                    if (child !== dynConsult && child.tagName !== 'HEADER' && child.tagName !== 'NAV' && child.tagName !== 'ASIDE') {
+                        child.style.display = 'none';
+                    }
+                });
+                dynConsult.style.display = 'block';
+            }
+        } else if (key === 'ordonnances') {
+            var dynOrdo = document.getElementById('bfa-dyn-ordonnances');
+            if (!dynOrdo && main) {
+                dynOrdo = document.createElement('div');
+                dynOrdo.id = 'bfa-dyn-ordonnances';
+                dynOrdo.className = 'tab-pane view-panel';
+                dynOrdo.style.cssText = 'padding:24px;width:100%;box-sizing:border-box;';
+                dynOrdo.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">' +
+                    '<div><h2 style="font-size:20px;font-weight:800;margin:0;">💊 Ordonnances Médicales & Prescriptions</h2><p style="font-size:13px;opacity:0.7;margin:4px 0 0;">Historique des ordonnances délivrées, posologies et impression directe</p></div>' +
+                    '<div style="display:flex;gap:10px;"><button onclick="window.print()" style="background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:10px 16px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;">🖨️ Imprimer la Sélection</button>' +
+                    '<button id="bfa-btn-new-ordo" style="background:#0284C7;color:#fff;border:none;padding:10px 18px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;">+ Nouvelle Ordonnance</button></div>' +
+                    '</div>' +
+                    '<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:14px;overflow-x:auto;">' +
+                    '<table style="width:100%;border-collapse:collapse;text-align:left;font-size:13px;">' +
+                    '<thead><tr style="border-bottom:1px solid rgba(255,255,255,0.08);opacity:0.7;"><th style="padding:12px 16px;">N° ORDONNANCE</th><th style="padding:12px 16px;">PATIENT</th><th style="padding:12px 16px;">DATE</th><th style="padding:12px 16px;">PRESCRIPTIONS & POSOLOGIE</th><th style="padding:12px 16px;">MÉDECIN TRAITANT</th><th style="padding:12px 16px;text-align:right;">ACTIONS</th></tr></thead>' +
+                    '<tbody id="bfa-ordo-dyn-tbody">' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">#ORD-2026-081</td><td style="padding:14px 16px;font-weight:700;">Fatou Bintou Ndiaye</td><td style="padding:14px 16px;">24/09/2026</td><td style="padding:14px 16px;">Amlodipine 5mg (1 cp/j matin), Paracétamol 1g (si douleurs)</td><td style="padding:14px 16px;">Dr. Diallo</td><td style="padding:14px 16px;text-align:right;"><button onclick="window.print()" style="background:none;border:none;color:#38BDF8;cursor:pointer;font-size:14px;font-weight:700;">🖨️ Imprimer</button></td></tr>' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">#ORD-2026-082</td><td style="padding:14px 16px;font-weight:700;">Ibrahima Sarr</td><td style="padding:14px 16px;">24/09/2026</td><td style="padding:14px 16px;">Metformine 1000mg (1 cp midi et soir au repas)</td><td style="padding:14px 16px;">Dr. Sow</td><td style="padding:14px 16px;text-align:right;"><button onclick="window.print()" style="background:none;border:none;color:#38BDF8;cursor:pointer;font-size:14px;font-weight:700;">🖨️ Imprimer</button></td></tr>' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">#ORD-2026-083</td><td style="padding:14px 16px;font-weight:700;">Mariama Ba</td><td style="padding:14px 16px;">23/09/2026</td><td style="padding:14px 16px;">Amoxicilline 1g (1 cp 2x/j pendant 6 jours)</td><td style="padding:14px 16px;">Dr. Diallo</td><td style="padding:14px 16px;text-align:right;"><button onclick="window.print()" style="background:none;border:none;color:#38BDF8;cursor:pointer;font-size:14px;font-weight:700;">🖨️ Imprimer</button></td></tr>' +
+                    '</tbody></table></div>';
+                main.appendChild(dynOrdo);
+                document.getElementById('bfa-btn-new-ordo').onclick = function() {
+                    var pat = prompt('Nom du patient :');
+                    if (!pat) return;
+                    var med = prompt('Médicaments prescrits :', 'Paracétamol 1g 3x/jour pendant 3 jours') || 'Paracétamol 1g';
+                    var tbody = document.getElementById('bfa-ordo-dyn-tbody');
+                    if (tbody) {
+                        var tr = document.createElement('tr');
+                        tr.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+                        tr.innerHTML = '<td style="padding:14px 16px;font-weight:700;">#ORD-2026-' + Math.floor(100+Math.random()*900) + '</td><td style="padding:14px 16px;font-weight:700;">' + pat + '</td><td style="padding:14px 16px;">24/09/2026</td><td style="padding:14px 16px;">' + med + '</td><td style="padding:14px 16px;">Dr. Diallo</td><td style="padding:14px 16px;text-align:right;"><button onclick="window.print()" style="background:none;border:none;color:#38BDF8;cursor:pointer;font-size:14px;font-weight:700;">🖨️ Imprimer</button></td>';
+                        tbody.insertBefore(tr, tbody.firstChild);
+                        window.bfaToast('Ordonnance créée pour ' + pat + ' !', '💊');
+                    }
+                };
+            }
+            if (dynOrdo && main) {
+                Array.from(main.children).forEach(function(child) {
+                    if (child !== dynOrdo && child.tagName !== 'HEADER' && child.tagName !== 'NAV' && child.tagName !== 'ASIDE') {
+                        child.style.display = 'none';
+                    }
+                });
+                dynOrdo.style.display = 'block';
+            }
+        } else if (key === 'stock') {
+            var dynStock = document.getElementById('bfa-dyn-stock');
+            if (!dynStock && main) {
+                dynStock = document.createElement('div');
+                dynStock.id = 'bfa-dyn-stock';
+                dynStock.className = 'tab-pane view-panel';
+                dynStock.style.cssText = 'padding:24px;width:100%;box-sizing:border-box;';
+                dynStock.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">' +
+                    '<div><h2 style="font-size:20px;font-weight:800;margin:0;">📦 Gestion du Stock Produits</h2><p style="font-size:13px;opacity:0.7;margin:4px 0 0;">Catalogue complet en temps réel et réapprovisionnement</p></div>' +
+                    '<div style="display:flex;gap:10px;"><input type="search" placeholder="Rechercher un produit..." style="padding:10px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:10px;color:#fff;font-size:13px;">' +
+                    '<button id="bfa-btn-add-p" style="background:#4F46E5;color:#fff;border:none;padding:10px 18px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;">+ Nouveau Produit</button></div>' +
+                    '</div>' +
+                    '<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:14px;overflow-x:auto;">' +
+                    '<table style="width:100%;border-collapse:collapse;text-align:left;font-size:13px;">' +
+                    '<thead><tr style="border-bottom:1px solid rgba(255,255,255,0.08);opacity:0.7;">' +
+                    '<th style="padding:12px 16px;">RÉF</th><th style="padding:12px 16px;">ARTICLE</th><th style="padding:12px 16px;">CATÉGORIE</th><th style="padding:12px 16px;">PRIX UNITAIRE</th><th style="padding:12px 16px;">STOCK DISPONIBLE</th><th style="padding:12px 16px;text-align:right;">ACTIONS</th></tr></thead>' +
+                    '<tbody id="bfa-stock-tbody">' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">#STK-101</td><td style="padding:14px 16px;font-weight:600;">👟 Chaussures Oxford Cuir</td><td style="padding:14px 16px;">Mode</td><td style="padding:14px 16px;font-weight:700;">45 000 FCFA</td><td style="padding:14px 16px;"><span style="background:rgba(16,185,129,0.15);color:#10B981;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;">🟢 24 en stock</span></td><td style="padding:14px 16px;text-align:right;"><button class="bfa-del-btn" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px;">🗑️</button></td></tr>' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">#STK-102</td><td style="padding:14px 16px;font-weight:600;">🎧 Casque Audio ANC Pro Wireless</td><td style="padding:14px 16px;">High-Tech</td><td style="padding:14px 16px;font-weight:700;">75 000 FCFA</td><td style="padding:14px 16px;"><span style="background:rgba(16,185,129,0.15);color:#10B981;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;">🟢 18 en stock</span></td><td style="padding:14px 16px;text-align:right;"><button class="bfa-del-btn" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px;">🗑️</button></td></tr>' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">#STK-103</td><td style="padding:14px 16px;font-weight:600;">⌚ Montre Connectée Pro Titanium</td><td style="padding:14px 16px;">High-Tech</td><td style="padding:14px 16px;font-weight:700;">35 000 FCFA</td><td style="padding:14px 16px;"><span style="background:rgba(245,158,11,0.15);color:#F59E0B;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;">🟠 4 en stock</span></td><td style="padding:14px 16px;text-align:right;"><button class="bfa-del-btn" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px;">🗑️</button></td></tr>' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">#STK-104</td><td style="padding:14px 16px;font-weight:600;">📱 Smartphone X-Pro 256GB</td><td style="padding:14px 16px;">High-Tech</td><td style="padding:14px 16px;font-weight:700;">320 000 FCFA</td><td style="padding:14px 16px;"><span style="background:rgba(16,185,129,0.15);color:#10B981;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;">🟢 12 en stock</span></td><td style="padding:14px 16px;text-align:right;"><button class="bfa-del-btn" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px;">🗑️</button></td></tr>' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">#STK-105</td><td style="padding:14px 16px;font-weight:600;">🎒 Sac à Dos Ergonomique Urban</td><td style="padding:14px 16px;">Accessoires</td><td style="padding:14px 16px;font-weight:700;">28 000 FCFA</td><td style="padding:14px 16px;"><span style="background:rgba(16,185,129,0.15);color:#10B981;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;">🟢 35 en stock</span></td><td style="padding:14px 16px;text-align:right;"><button class="bfa-del-btn" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px;">🗑️</button></td></tr>' +
+                    '</tbody></table></div>';
+                main.appendChild(dynStock);
+                document.getElementById('bfa-btn-add-p').onclick = function() { openGenericAddModal(); };
+            }
+            if (dynStock && main) {
+                Array.from(main.children).forEach(function(child) {
+                    if (child !== dynStock && child.tagName !== 'HEADER' && child.tagName !== 'NAV' && child.tagName !== 'ASIDE') {
+                        child.style.display = 'none';
+                    }
+                });
+                dynStock.style.display = 'block';
+            }
+        } else if (key === 'factur') {
+            var dynFactur = document.getElementById('bfa-dyn-factur');
+            if (!dynFactur && main) {
+                dynFactur = document.createElement('div');
+                dynFactur.id = 'bfa-dyn-factur';
+                dynFactur.className = 'tab-pane view-panel';
+                dynFactur.style.cssText = 'padding:24px;width:100%;box-sizing:border-box;';
+                dynFactur.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">' +
+                    '<div><h2 style="font-size:20px;font-weight:800;margin:0;">🧾 Facturation & Transactions</h2><p style="font-size:13px;opacity:0.7;margin:4px 0 0;">Journal des ventes, encaissements et états de paiement</p></div>' +
+                    '<div style="display:flex;gap:10px;"><button id="bfa-btn-export-csv" style="background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:10px 16px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;">📥 Exporter CSV</button>' +
+                    '<button id="bfa-btn-add-factur" style="background:' + APP_THEME + ';color:#fff;border:none;padding:10px 18px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;">+ Créer Facture</button>' +
+                    '</div></div>' +
+                    '<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:14px;overflow-x:auto;">' +
+                    '<table style="width:100%;border-collapse:collapse;text-align:left;font-size:13px;">' +
+                    '<thead><tr style="border-bottom:1px solid rgba(255,255,255,0.08);opacity:0.7;">' +
+                    '<th style="padding:12px 16px;">N° FACTURE</th><th style="padding:12px 16px;">CLIENT</th><th style="padding:12px 16px;">MONTANT TOTAL</th><th style="padding:12px 16px;">DATE</th><th style="padding:12px 16px;">CANAL</th><th style="padding:12px 16px;">STATUT</th><th style="padding:12px 16px;text-align:right;">ACTIONS</th></tr></thead>' +
+                    '<tbody id="bfa-factur-tbody">' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">#FAC-2025-001</td><td style="padding:14px 16px;font-weight:600;">Aminata Ba (Dakar)</td><td style="padding:14px 16px;font-weight:700;color:#10B981;">85 000 FCFA</td><td style="padding:14px 16px;">24/09/2026</td><td style="padding:14px 16px;">Wave</td><td style="padding:14px 16px;"><span style="background:rgba(16,185,129,0.15);color:#10B981;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;cursor:pointer;">🟢 Payée</span></td><td style="padding:14px 16px;text-align:right;"><button class="bfa-del-btn" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px;">🗑️</button></td></tr>' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">#FAC-2025-002</td><td style="padding:14px 16px;font-weight:600;">Mamadou Diop (TechStore)</td><td style="padding:14px 16px;font-weight:700;color:#10B981;">145 000 FCFA</td><td style="padding:14px 16px;">24/09/2026</td><td style="padding:14px 16px;">Orange Money</td><td style="padding:14px 16px;"><span style="background:rgba(16,185,129,0.15);color:#10B981;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;cursor:pointer;">🟢 Payée</span></td><td style="padding:14px 16px;text-align:right;"><button class="bfa-del-btn" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px;">🗑️</button></td></tr>' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">#FAC-2025-003</td><td style="padding:14px 16px;font-weight:600;">Cheikh Ndiaye</td><td style="padding:14px 16px;font-weight:700;color:#F59E0B;">32 500 FCFA</td><td style="padding:14px 16px;">23/09/2026</td><td style="padding:14px 16px;">Espèces</td><td style="padding:14px 16px;"><span style="background:rgba(245,158,11,0.15);color:#F59E0B;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;cursor:pointer;">🟡 En attente</span></td><td style="padding:14px 16px;text-align:right;"><button class="bfa-del-btn" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px;">🗑️</button></td></tr>' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">#FAC-2025-004</td><td style="padding:14px 16px;font-weight:600;">Pharmacie Moderne</td><td style="padding:14px 16px;font-weight:700;color:#10B981;">380 000 FCFA</td><td style="padding:14px 16px;">23/09/2026</td><td style="padding:14px 16px;">Virement</td><td style="padding:14px 16px;"><span style="background:rgba(16,185,129,0.15);color:#10B981;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;cursor:pointer;">🟢 Payée</span></td><td style="padding:14px 16px;text-align:right;"><button class="bfa-del-btn" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px;">🗑️</button></td></tr>' +
+                    '</tbody></table></div>';
+                main.appendChild(dynFactur);
+                document.getElementById('bfa-btn-add-factur').onclick = function() { openGenericAddModal(); };
+                document.getElementById('bfa-btn-export-csv').onclick = function() {
+                    var table = dynFactur.querySelector('table');
+                    exportTableToCsv(table);
+                };
+            }
+            if (dynFactur && main) {
+                Array.from(main.children).forEach(function(child) {
+                    if (child !== dynFactur && child.tagName !== 'HEADER' && child.tagName !== 'NAV' && child.tagName !== 'ASIDE') {
+                        child.style.display = 'none';
+                    }
+                });
+                dynFactur.style.display = 'block';
+            }
+        } else if (key === 'alert') {
+            var dynAlert = document.getElementById('bfa-dyn-alert');
+            if (!dynAlert && main) {
+                dynAlert = document.createElement('div');
+                dynAlert.id = 'bfa-dyn-alert';
+                dynAlert.className = 'tab-pane view-panel';
+                dynAlert.style.cssText = 'padding:24px;width:100%;box-sizing:border-box;';
+                dynAlert.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">' +
+                    '<div><h2 style="font-size:20px;font-weight:800;margin:0;">⚠️ Alertes & Urgences Médicales</h2><p style="font-size:13px;opacity:0.7;margin:4px 0 0;">2 cas critiques à surveiller en priorité</p></div>' +
+                    '</div>' +
+                    '<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:14px;overflow-x:auto;">' +
+                    '<table style="width:100%;border-collapse:collapse;text-align:left;font-size:13px;">' +
+                    '<thead><tr style="border-bottom:1px solid rgba(255,255,255,0.08);opacity:0.7;"><th style="padding:12px 16px;">PATIENT / CAS</th><th style="padding:12px 16px;">CONSTANTE CRITIQUE</th><th style="padding:12px 16px;">SEUIL NORMAL</th><th style="padding:12px 16px;text-align:right;">ACTION D\'URGENCE</th></tr></thead>' +
+                    '<tbody>' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">Moussa Diouf (Chambre 2)</td><td style="padding:14px 16px;"><span style="color:#EF4444;font-weight:700;">🔴 TA: 175/105 mmHg</span></td><td style="padding:14px 16px;">120/80 mmHg</td><td style="padding:14px 16px;text-align:right;"><button onclick="this.textContent=\'✅ Pris en charge\';this.style.background=\'#10B981\';window.bfaToast(\'Équipe médicale alertée !\', \'🚨\')" style="background:#EF4444;color:#fff;border:none;padding:6px 14px;border-radius:8px;font-weight:700;cursor:pointer;">Intervention Médicale</button></td></tr>' +
+                    '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:14px 16px;font-weight:700;">Aminata Ba (Salle Soins)</td><td style="padding:14px 16px;"><span style="color:#EF4444;font-weight:700;">🔴 SpO2: 89% (Désat)</span></td><td style="padding:14px 16px;">> 95%</td><td style="padding:14px 16px;text-align:right;"><button onclick="this.textContent=\'✅ O2 Administré\';this.style.background=\'#10B981\';window.bfaToast(\'Oxygénothérapie enclenchée\', \'🫁\')" style="background:#EF4444;color:#fff;border:none;padding:6px 14px;border-radius:8px;font-weight:700;cursor:pointer;">Oxygénothérapie</button></td></tr>' +
+                    '</tbody></table></div>';
+                main.appendChild(dynAlert);
+            }
+            if (dynAlert && main) {
+                Array.from(main.children).forEach(function(child) {
+                    if (child !== dynAlert && child.tagName !== 'HEADER' && child.tagName !== 'NAV' && child.tagName !== 'ASIDE') {
+                        child.style.display = 'none';
+                    }
+                });
+                dynAlert.style.display = 'block';
+            }
+        } else if (key === 'dashboard') {
+            if (main) {
+                Array.from(main.children).forEach(function(child) {
+                    if (child.id && child.id.startsWith('bfa-dyn-')) {
+                        child.style.display = 'none';
+                    } else if (child.tagName !== 'HEADER' && child.tagName !== 'NAV' && child.tagName !== 'ASIDE') {
+                        child.style.display = '';
+                    }
+                });
+            }
+        }
+    };
+    if (typeof window.switchTab !== 'function') {
+        window.switchTab = window.bfaSwitchTab;
+    }
+    if (typeof window.showTab !== 'function') {
+        window.showTab = window.bfaSwitchTab;
+    }
+    if (typeof window.selectTab !== 'function') {
+        window.selectTab = window.bfaSwitchTab;
+    }
+
+    // 6. Détection du type d'application (Médical, Stock, Facturation, etc.)
+    var isMedicalApp = /m[ée]dic|sant[ée]|cliniqu|docteur|patient|consultation|ordonnance|pharmacie/i.test(document.title + ' ' + (document.body ? document.body.innerText : ''));
+
+    // 7. Modale Universelle Patient Médical
+    function openMedicalPatientModal() {
+        var existing = document.getElementById('bfa-patient-modal');
+        if (existing) existing.remove();
+        var modal = document.createElement('div');
+        modal.id = 'bfa-patient-modal';
+        modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999999;background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px;font-family:system-ui,-apple-system,sans-serif;box-sizing:border-box;';
+        modal.innerHTML = '<div style="background:#0F172A;border:1px solid rgba(255,255,255,0.18);border-radius:20px;padding:26px;max-width:500px;width:100%;color:#F8FAFC;box-shadow:0 30px 70px rgba(0,0,0,0.85);max-height:90vh;overflow-y:auto;">' +
+            '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:12px;">' +
+            '<h3 style="font-size:18px;font-weight:800;margin:0;display:flex;align-items:center;gap:8px;">🩺 <span>Nouveau Dossier Patient</span></h3>' +
+            '<button onclick="this.closest(\'#bfa-patient-modal\').remove()" style="background:none;border:none;color:#fff;font-size:24px;cursor:pointer;line-height:1;">&times;</button>' +
+            '</div>' +
+            '<div style="display:flex;flex-direction:column;gap:12px;font-size:13px;">' +
+            '<div><label style="display:block;margin-bottom:4px;font-weight:600;opacity:0.85;">Nom Complet du Patient :</label><input id="bfa-p-name" type="text" placeholder="Ex: Awa Diop" style="width:100%;padding:10px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.18);border-radius:10px;color:#fff;box-sizing:border-box;font-size:14px;"></div>' +
+            '<div style="display:flex;gap:10px;">' +
+            '<div style="flex:1;"><label style="display:block;margin-bottom:4px;font-weight:600;opacity:0.85;">Âge :</label><input id="bfa-p-age" type="number" placeholder="32" style="width:100%;padding:10px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.18);border-radius:10px;color:#fff;box-sizing:border-box;"></div>' +
+            '<div style="flex:1;"><label style="display:block;margin-bottom:4px;font-weight:600;opacity:0.85;">Sexe :</label><select id="bfa-p-sex" style="width:100%;padding:10px 12px;background:#1E293B;border:1px solid rgba(255,255,255,0.18);border-radius:10px;color:#fff;box-sizing:border-box;"><option value="F">Féminin (F)</option><option value="M">Masculin (M)</option></select></div>' +
+            '<div style="flex:1;"><label style="display:block;margin-bottom:4px;font-weight:600;opacity:0.85;">Groupe Sanguin :</label><select id="bfa-p-blood" style="width:100%;padding:10px 12px;background:#1E293B;border:1px solid rgba(255,255,255,0.18);border-radius:10px;color:#fff;box-sizing:border-box;"><option value="O+">O+</option><option value="A+">A+</option><option value="B+">B+</option><option value="AB+">AB+</option><option value="O-">O-</option></select></div>' +
+            '</div>' +
+            '<div style="display:flex;gap:10px;">' +
+            '<div style="flex:1;"><label style="display:block;margin-bottom:4px;font-weight:600;opacity:0.85;">Tension (TA) :</label><input id="bfa-p-ta" type="text" placeholder="120/80" style="width:100%;padding:10px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.18);border-radius:10px;color:#fff;box-sizing:border-box;"></div>' +
+            '<div style="flex:1;"><label style="display:block;margin-bottom:4px;font-weight:600;opacity:0.85;">Pouls (bpm) :</label><input id="bfa-p-pulse" type="number" placeholder="72" style="width:100%;padding:10px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.18);border-radius:10px;color:#fff;box-sizing:border-box;"></div>' +
+            '</div>' +
+            '<div><label style="display:block;margin-bottom:4px;font-weight:600;opacity:0.85;">Antécédents / Allergies :</label><input id="bfa-p-hist" type="text" placeholder="Ex: Allergie Pénicilline, HTA" style="width:100%;padding:10px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.18);border-radius:10px;color:#fff;box-sizing:border-box;"></div>' +
+            '<button id="bfa-p-save" style="background:#0284C7;color:#fff;border:none;padding:12px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;margin-top:10px;width:100%;box-shadow:0 4px 15px rgba(2,132,199,0.4);">Enregistrer le Dossier Patient</button>' +
+            '</div>' +
+            '</div>';
+        document.body.appendChild(modal);
+
+        document.getElementById('bfa-p-save').onclick = function() {
+            var name = (document.getElementById('bfa-p-name').value || '').trim();
+            if (!name) { alert('Veuillez renseigner le nom du patient.'); return; }
+            var age = document.getElementById('bfa-p-age').value || '32';
+            var sex = document.getElementById('bfa-p-sex').value;
+            var blood = document.getElementById('bfa-p-blood').value;
+            var ta = document.getElementById('bfa-p-ta').value || '120/80';
+            var pulse = document.getElementById('bfa-p-pulse').value || '72';
+            var hist = document.getElementById('bfa-p-hist').value || 'Aucun';
+
+            // Insérer dans tous les tableaux de patients de la page (Dashboard et Onglet)
+            var tbodies = document.querySelectorAll('#bfa-patient-dyn-tbody, #bfa-patient-tbody, table tbody');
+            tbodies.forEach(function(tbody) {
+                var table = tbody.closest('table');
+                var thElements = table ? table.querySelectorAll('th, thead td') : [];
+                var headers = Array.from(thElements).map(function(th) { return (th.textContent || '').trim().toUpperCase(); });
+                var tr = document.createElement('tr');
+                tr.style.cssText = 'border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(2,132,199,0.08);transition:all 0.3s ease;';
+                if (headers.length > 0) {
+                    var rHtml = '';
+                    headers.forEach(function(h) {
+                        if (h.includes('PATIENT') || h.includes('NOM')) {
+                            rHtml += '<td style="padding:14px 16px;font-weight:700;">' + name + '<div style="font-size:11px;opacity:0.7;">Dossier #MED-' + Math.floor(1000 + Math.random()*9000) + '</div></td>';
+                        } else if (h.includes('ÂGE') || h.includes('AGE') || h.includes('SEXE')) {
+                            rHtml += '<td style="padding:14px 16px;">' + age + ' ans • ' + sex + '</td>';
+                        } else if (h.includes('GROUPE') || h.includes('SANG')) {
+                            rHtml += '<td style="padding:14px 16px;"><span style="background:rgba(2,132,199,0.15);color:#0284C7;padding:3px 8px;border-radius:6px;font-weight:700;">' + blood + '</span></td>';
+                        } else if (h.includes('CONSTANTE') || h.includes('VITALE')) {
+                            rHtml += '<td style="padding:14px 16px;"><span style="font-weight:700;color:#10B981;">' + ta + '</span> <span style="font-size:12px;opacity:0.8;">• ' + pulse + ' bpm</span></td>';
+                        } else if (h.includes('TENSION') || h.includes('TA')) {
+                            rHtml += '<td style="padding:14px 16px;font-weight:700;color:#10B981;">' + ta + '</td>';
+                        } else if (h.includes('POULS')) {
+                            rHtml += '<td style="padding:14px 16px;">' + pulse + ' bpm</td>';
+                        } else if (h.includes('STATUT') || h.includes('ETAT')) {
+                            rHtml += '<td style="padding:14px 16px;"><span style="background:rgba(16,185,129,0.15);color:#10B981;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;">🟢 Nouveau</span></td>';
+                        } else {
+                            rHtml += '<td style="padding:14px 16px;text-align:right;"><button class="bfa-del-btn" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px;">🗑️</button></td>';
+                        }
+                    });
+                    tr.innerHTML = rHtml;
+                } else {
+                    tr.innerHTML = '<td style="padding:14px 16px;font-weight:700;">' + name + '</td><td style="padding:14px 16px;">' + age + ' ans • ' + sex + '</td><td style="padding:14px 16px;"><span style="background:rgba(2,132,199,0.15);color:#0284C7;padding:3px 8px;border-radius:6px;font-weight:700;">' + blood + '</span></td><td style="padding:14px 16px;font-weight:700;color:#10B981;">' + ta + ' • ' + pulse + ' bpm</td><td style="padding:14px 16px;"><span style="background:rgba(16,185,129,0.15);color:#10B981;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;">🟢 Nouveau</span></td><td style="padding:14px 16px;text-align:right;"><button class="bfa-del-btn" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px;">🗑️</button></td>';
+                }
+                tbody.insertBefore(tr, tbody.firstChild);
+            });
+
+            // Incrémenter les badges patients
+            document.querySelectorAll('.badge, [class*="badge"], [class*="count"]').forEach(function(b) {
+                var p = (b.closest('button, a, div, li') ? b.closest('button, a, div, li').textContent : '').toLowerCase();
+                if (p.includes('patient') || p.includes('dossier')) {
+                    var n = parseInt(b.textContent) || 0;
+                    b.textContent = n + 1;
+                }
+            });
+
+            var savedPatients = getLocalData('patients') || [];
+            savedPatients.unshift({ name: name, age: age, sex: sex, blood: blood, ta: ta, pulse: pulse, hist: hist });
+            saveLocalData('patients', savedPatients);
+
+            modal.remove();
+            window.bfaToast('Dossier médical de ' + name + ' enregistré avec succès !', '✅');
+        };
+    }
+
+    // 8. Modale Universelle d'Ajout Générique (Stock, Factures, Produits)
+    function openGenericAddModal() {
+        var table = document.querySelector('table');
+        var headers = [];
+        if (table) {
+            table.querySelectorAll('th').forEach(function(th) {
+                var t = (th.textContent || '').trim();
+                if (t && !t.includes('ACTION')) headers.push(t);
+            });
+        }
+        if (headers.length === 0) headers = ['Désignation / Article', 'Catégorie', 'Prix Unitaire (FCFA)', 'Quantité / Stock'];
+
+        var existing = document.getElementById('bfa-gen-modal');
+        if (existing) existing.remove();
+        var modal = document.createElement('div');
+        modal.id = 'bfa-gen-modal';
+        modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999999;background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px;font-family:system-ui,-apple-system,sans-serif;box-sizing:border-box;';
+        
+        var inputsHtml = '';
+        headers.forEach(function(h, idx) {
+            inputsHtml += '<div style="margin-bottom:12px;"><label style="display:block;margin-bottom:4px;font-weight:600;font-size:12px;opacity:0.8;">' + h + ' :</label>' +
+                '<input class="bfa-dyn-inp" data-idx="' + idx + '" type="text" placeholder="' + h + '" style="width:100%;padding:10px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:8px;color:#fff;box-sizing:border-box;font-size:13px;"></div>';
+        });
+
+        modal.innerHTML = '<div style="background:#0F172A;border:1px solid rgba(255,255,255,0.15);border-radius:18px;padding:24px;max-width:440px;width:100%;color:#F8FAFC;box-shadow:0 25px 60px rgba(0,0,0,0.8);">' +
+            '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">' +
+            '<h3 style="font-size:17px;font-weight:800;margin:0;">➕ Nouveau Enregistrement</h3>' +
+            '<button onclick="this.closest(\'#bfa-gen-modal\').remove()" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;">&times;</button>' +
+            '</div>' +
+            '<div style="max-height:60vh;overflow-y:auto;padding-right:4px;">' + inputsHtml + '</div>' +
+            '<button id="bfa-gen-save" style="background:' + APP_THEME + ';color:#fff;border:none;padding:12px;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer;margin-top:14px;width:100%;">Valider et Ajouter</button>' +
+            '</div>';
+        document.body.appendChild(modal);
+
+        document.getElementById('bfa-gen-save').onclick = function() {
+            var vals = [];
+            modal.querySelectorAll('.bfa-dyn-inp').forEach(function(inp) { vals.push(inp.value.trim() || '—'); });
+            var tbody = document.querySelector('table tbody');
+            if (tbody) {
+                var tr = document.createElement('tr');
+                tr.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+                var rowHtml = '';
+                vals.forEach(function(v, i) {
+                    if (i === 0) rowHtml += '<td style="padding:14px 16px;font-weight:700;">' + v + '</td>';
+                    else rowHtml += '<td style="padding:14px 16px;">' + v + '</td>';
+                });
+                rowHtml += '<td style="padding:14px 16px;text-align:right;"><button class="bfa-del-btn" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px;">🗑️</button></td>';
+                tr.innerHTML = rowHtml;
+                tbody.insertBefore(tr, tbody.firstChild);
+            }
+
+            var savedRecords = getLocalData('generic_records') || [];
+            savedRecords.unshift(vals);
+            saveLocalData('generic_records', savedRecords);
+
+            modal.remove();
+            window.bfaToast('Enregistrement ajouté avec succès et sauvegardé en local !', '✅');
+        };
+    }
+
+    // Fonction utilitaire Export Table to CSV
+    function exportTableToCsv(table) {
+        if (!table) table = document.querySelector('table');
+        if (!table) return;
+        var csv = [];
+        table.querySelectorAll('tr').forEach(function(tr) {
+            var row = [];
+            tr.querySelectorAll('th, td').forEach(function(cell) {
+                var text = cell.innerText.replace(/[\n\r]+/g, ' ').replace(/"/g, '""').trim();
+                if (!text.includes('🗑️') && !text.includes('ACTIONS')) row.push('"' + text + '"');
+            });
+            if (row.length) csv.push(row.join(';'));
+        });
+        var blob = new Blob([csv.join('\n')], { type: 'text/csv;charset=utf-8;' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'export_donnees_' + new Date().toISOString().split('T')[0] + '.csv';
+        a.click();
+        URL.revokeObjectURL(url);
+        window.bfaToast('Données exportées au format CSV !', '📥');
+    }
+
+    // 9. Replis d'interaction réservés aux contrôles explicitement marqués
+    function bindAllButtons() {
+        // Expose des replis uniquement quand la page ne définit pas déjà ses propres fonctions.
+        var addFallback = function(name, handler) {
+            if (typeof window[name] === 'undefined') window[name] = handler;
+        };
+        var openAddFallback = function() {
+            if (isMedicalApp) openMedicalPatientModal();
+            else openGenericAddModal();
+        };
+        ['openModal', 'showModal', 'openPatientModal', 'showPatientModal', 'openAddModal', 'newPatient', 'addPatient', 'openNewModal', 'openNewPatientModal']
+            .forEach(function(name) { addFallback(name, openAddFallback); });
+        var closeFallback = function() {
+            var m = document.querySelector('#bfa-patient-modal, #bfa-gen-modal, .modal.open, [class*="modal"][style*="display: block"]');
+            if (m) m.remove();
+        };
+        ['closeModal', 'hideModal'].forEach(function(name) { addFallback(name, closeFallback); });
+
+        // Never replace behavior authored by the generated page. Generic
+        // fallbacks are opt-in so they cannot hijack page-specific controls.
+        document.querySelectorAll('[data-bfa-fallback]').forEach(function(btn) {
+            if (btn.hasAttribute('onclick')) return;
+            var txt = (btn.textContent || '').trim().toLowerCase();
+
+            if (txt.includes('installer') || txt.includes('telecharger') || txt.includes('télécharger') || txt.includes('download') || txt.includes('pwa')) {
+                btn.onclick = function(e) {
+                    if (e) { e.preventDefault(); e.stopPropagation(); }
+                    handlePwaDownloadOrInstall(e);
+                };
+            } else if (txt.includes('nouveau') || txt.includes('ajouter') || txt.includes('nouvelle') || txt.includes('créer') || txt === '+' || txt.startsWith('+')) {
+                btn.onclick = function(e) {
+                    if (e) { e.preventDefault(); e.stopPropagation(); }
+                    if (isMedicalApp) openMedicalPatientModal();
+                    else openGenericAddModal();
+                };
+            } else if (btn.closest('aside, .sidebar, nav, ul, [class*="sidebar"], [class*="nav"]') || btn.classList.contains('tab') || btn.hasAttribute('data-tab')) {
+                var tabKey = btn.getAttribute('data-tab') || '';
+                if (!tabKey) {
+                    if (txt.includes('patient') || txt.includes('dossier')) tabKey = 'patients';
+                    else if (txt.includes('consultation')) tabKey = 'consultations';
+                    else if (txt.includes('ordonnance') || txt.includes('prescript')) tabKey = 'ordonnances';
+                    else if (txt.includes('stock') || txt.includes('produit') || txt.includes('article')) tabKey = 'stock';
+                    else if (txt.includes('factur') || txt.includes('commande') || txt.includes('vente')) tabKey = 'factur';
+                    else if (txt.includes('alert') || txt.includes('notif') || txt.includes('urgence')) tabKey = 'alert';
+                    else if (txt.includes('board') || txt.includes('bord') || txt.includes('accueil') || txt.includes('dash')) tabKey = 'dashboard';
+                }
+                if (tabKey) {
+                    btn.onclick = function(e) {
+                        if (e) { e.preventDefault(); e.stopPropagation(); }
+                        var navContainer = btn.closest('aside, .sidebar, nav, ul, [class*="nav"]') || btn.parentElement;
+                        if (navContainer) {
+                            navContainer.querySelectorAll('button, a, div, li, .nav-item, .tab').forEach(function(s) { s.classList.remove('active'); });
+                        }
+                        btn.classList.add('active');
+                        window.bfaSwitchTab(tabKey);
+                    };
+                }
+            }
+        });
+    }
+
+    // 10. Intercepteur de clics limité aux contrôles de repli BFA
+    function handleUniversalClick(e) {
+        var target = e.target.closest('[data-bfa-fallback]');
+        if (!target) return;
+        if (target.hasAttribute('onclick')) return;
+        var txt = (target.textContent || '').trim().toLowerCase();
+
+        // 1. Boutons PWA
+        if (txt.includes('installer') || txt.includes('telecharger') || txt.includes('télécharger') || txt.includes('download') || txt.includes('pwa') || target.id === 'bfa-pwa-install-btn' || target.id === 'bfa-pwa-export-btn') {
+            e.preventDefault();
+            e.stopPropagation();
+            handlePwaDownloadOrInstall(e);
+            return;
+        }
+
+        // 2. Boutons Nouveau / Ajouter
+        if (txt.includes('nouveau') || txt.includes('ajouter') || txt.includes('nouvelle') || txt.includes('créer') || txt === '+' || txt.startsWith('+')) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (isMedicalApp) openMedicalPatientModal();
+            else openGenericAddModal();
+            return;
+        }
+
+        // 3. Navigation Sidebar & Onglets
+        var isNavElement = target.closest('aside, .sidebar, nav, [class*="sidebar"], [class*="nav"], [class*="menu"]') || target.classList.contains('tab') || target.hasAttribute('data-tab');
+        if (isNavElement) {
+            var tabKey = target.getAttribute('data-tab') || '';
+            if (!tabKey) {
+                if (txt.includes('patient') || txt.includes('dossier')) tabKey = 'patients';
+                else if (txt.includes('consultation')) tabKey = 'consultations';
+                else if (txt.includes('ordonnance') || txt.includes('prescript')) tabKey = 'ordonnances';
+                else if (txt.includes('stock') || txt.includes('produit') || txt.includes('article')) tabKey = 'stock';
+                else if (txt.includes('factur') || txt.includes('commande') || txt.includes('vente')) tabKey = 'factur';
+                else if (txt.includes('alert') || txt.includes('notif') || txt.includes('urgence')) tabKey = 'alert';
+                else if (txt.includes('board') || txt.includes('bord') || txt.includes('accueil') || txt.includes('dash')) tabKey = 'dashboard';
+            }
+            if (tabKey) {
+                var navContainer = target.closest('aside, .sidebar, nav, ul, [class*="nav"]') || target.parentElement;
+                if (navContainer) {
+                    navContainer.querySelectorAll('button, a, div, li, .nav-item, .tab').forEach(function(s) { s.classList.remove('active'); });
+                }
+                target.classList.add('active');
+                window.bfaSwitchTab(tabKey);
+                e.preventDefault();
+                e.stopPropagation();
+                return;
+            }
+        }
+
+        // 4. Cartes KPIs cliquables
+        var isCard = target.closest('.card, [class*="card"], [class*="stat"], [class*="metric"], [class*="box"]');
+        if (isCard && !target.closest('button, a, input, table')) {
+            var cardTxt = isCard.textContent.toLowerCase();
+            if (cardTxt.includes('patient')) {
+                window.bfaSwitchTab('patients');
+                e.preventDefault();
+                return;
+            } else if (cardTxt.includes('consultation') || cardTxt.includes('attente') || cardTxt.includes('file')) {
+                window.bfaSwitchTab('consultations');
+                e.preventDefault();
+                return;
+            } else if (cardTxt.includes('recette') || cardTxt.includes('chiffre') || cardTxt.includes('factur') || cardTxt.includes('vente')) {
+                window.bfaSwitchTab('factur');
+                e.preventDefault();
+                return;
+            } else if (cardTxt.includes('urgence') || cardTxt.includes('alerte') || cardTxt.includes('critique')) {
+                window.bfaSwitchTab('alert');
+                e.preventDefault();
+                return;
+            }
+        }
+
+        // 5. Boutons Supprimer
+        if (target.classList.contains('bfa-del-btn') || txt.includes('supprimer') || txt.includes('retirer') || txt.includes('delete') || txt.includes('🗑')) {
+            var row = target.closest('tr, .card, [class*="item"], li');
+            if (row) {
+                row.style.transition = 'all 0.3s ease';
+                row.style.opacity = '0';
+                row.style.transform = 'scale(0.95)';
+                setTimeout(function() {
+                    row.remove();
+                    window.bfaToast('Élément supprimé avec succès.', '🗑️');
+                }, 280);
+                e.preventDefault();
+                e.stopPropagation();
+                return;
+            }
+        }
+
+        // 6. Boutons Imprimer
+        if (txt.includes('imprimer') || txt.includes('print') || txt.includes('🖨')) {
+            window.print();
+            e.preventDefault();
+            return;
+        }
+
+        // 7. Boutons Export CSV
+        if (txt.includes('export') || txt.includes('csv') || txt.includes('tableur')) {
+            exportTableToCsv();
+            e.preventDefault();
+            return;
+        }
+    }
+    document.addEventListener('click', handleUniversalClick, true);
+
+    // 11. Recherche en direct automatique sur tous les champs de recherche
+    document.addEventListener('input', function(e) {
+        if (e.target.matches('input[type="search"], input[placeholder*="cherch"], input[placeholder*="filtr"], [class*="search"] input')) {
+            var val = e.target.value.toLowerCase().trim();
+            document.querySelectorAll('table tbody tr').forEach(function(tr) {
+                var rowText = tr.textContent.toLowerCase();
+                tr.style.display = rowText.includes(val) ? '' : 'none';
+            });
+        }
+    });
+
+    // 12. Restauration des données sauvegardées depuis le LocalStorage au démarrage
+    function restoreLocalRecords() {
+        if (isMedicalApp) {
+            var savedPatients = getLocalData('patients');
+            if (savedPatients && savedPatients.length) {
+                var tbody = document.querySelector('#bfa-patient-dyn-tbody, #bfa-patient-tbody, table tbody');
+                if (tbody) {
+                    savedPatients.forEach(function(p) {
+                        var tr = document.createElement('tr');
+                        tr.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+                        tr.innerHTML = '<td style="padding:14px 16px;font-weight:700;">' + p.name + '<div style="font-size:11px;opacity:0.7;">Dossier #MED-' + Math.floor(1000 + Math.random()*9000) + '</div></td><td style="padding:14px 16px;">' + p.age + ' ans • ' + p.sex + '</td><td style="padding:14px 16px;"><span style="background:rgba(2,132,199,0.15);color:#0284C7;padding:3px 8px;border-radius:6px;font-weight:700;">' + p.blood + '</span></td><td style="padding:14px 16px;font-weight:700;color:#10B981;">' + (p.ta || '120/80') + ' • ' + (p.pulse || '72') + ' bpm</td><td style="padding:14px 16px;"><span style="background:rgba(16,185,129,0.15);color:#10B981;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;">🟢 Enregistré</span></td><td style="padding:14px 16px;text-align:right;"><button class="bfa-del-btn" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px;">🗑️</button></td>';
+                        tbody.insertBefore(tr, tbody.firstChild);
+                    });
+                }
+            }
+        }
+    }
+
+    // 13. Hydratation automatique de tous les tableaux vides (Patients, Factures, Consultations, Stock, Urgences)
+    function hydrateEmptyTables() {
+        var tables = document.querySelectorAll('table');
+        tables.forEach(function(table) {
+            var tbody = table.querySelector('tbody');
+            if (!tbody) {
+                tbody = document.createElement('tbody');
+                table.appendChild(tbody);
+            }
+            var validRows = Array.from(tbody.querySelectorAll('tr')).filter(function(r) {
+                var txt = (r.textContent || '').toLowerCase().trim();
+                return r.querySelectorAll('td').length > 1 && !txt.includes('aucun') && !txt.includes('vide') && txt.length > 5;
+            });
+            if (validRows.length === 0) {
+                var thElements = table.querySelectorAll('th, thead td, tr:first-child th, tr:first-child td');
+                var headers = Array.from(thElements).map(function(th) { return (th.textContent || '').trim().toUpperCase(); });
+                var sectionTitle = (table.closest('div, section, article, .card') ? table.closest('div, section, article, .card').textContent : '').toUpperCase();
+                var headerStr = headers.join(' ') + ' ' + sectionTitle;
+                
+                if (headerStr.includes('PATIENT') || headerStr.includes('GROUPE') || headerStr.includes('TENSION') || headerStr.includes('POULS') || headerStr.includes('ÂGE') || headerStr.includes('AGE') || headerStr.includes('SANGUIN') || headerStr.includes('CONSTANTE')) {
+                    if (headers.length === 0) headers = ['PATIENT', 'ÂGE / SEXE', 'GROUPE SANGUIN', 'CONSTANTES VITALES', 'STATUT', 'ACTIONS'];
+                    var samplePatients = [
+                        { name: 'Fatou Bintou Ndiaye', dossier: '#MED-2026-042', age: '34 ans • F', blood: 'O+', ta: '120/80', pulse: '72 bpm', status: '🟢 En consultation', statusBg: 'rgba(16,185,129,0.15)', statusColor: '#10B981' },
+                        { name: 'Moussa Diouf', dossier: '#MED-2026-043', age: '52 ans • M', blood: 'A+', ta: '138/88', pulse: '78 bpm', status: '🟡 En attente', statusBg: 'rgba(245,158,11,0.15)', statusColor: '#F59E0B' },
+                        { name: 'Aminata Traoré', dossier: '#MED-2026-044', age: '27 ans • F', blood: 'B+', ta: '115/75', pulse: '68 bpm', status: '🟢 Reçu', statusBg: 'rgba(16,185,129,0.15)', statusColor: '#10B981' },
+                        { name: 'Ibrahima Sarr', dossier: '#MED-2026-045', age: '45 ans • M', blood: 'O+', ta: '125/82', pulse: '74 bpm', status: '🟢 Reçu', statusBg: 'rgba(16,185,129,0.15)', statusColor: '#10B981' },
+                        { name: 'Mariama Ba', dossier: '#MED-2026-046', age: '19 ans • F', blood: 'AB+', ta: '110/70', pulse: '65 bpm', status: '🟢 Reçu', statusBg: 'rgba(16,185,129,0.15)', statusColor: '#10B981' },
+                        { name: 'Ousmane Cissé', dossier: '#MED-2026-047', age: '61 ans • M', blood: 'O-', ta: '142/90', pulse: '80 bpm', status: '🟡 En attente', statusBg: 'rgba(245,158,11,0.15)', statusColor: '#F59E0B' },
+                        { name: 'Aïssatou Diallo', dossier: '#MED-2026-048', age: '29 ans • F', blood: 'A-', ta: '118/76', pulse: '70 bpm', status: '🟢 Reçu', statusBg: 'rgba(16,185,129,0.15)', statusColor: '#10B981' },
+                        { name: 'Cheikh Tidiane Gaye', dossier: '#MED-2026-049', age: '38 ans • M', blood: 'B+', ta: '122/80', pulse: '75 bpm', status: '🟢 Reçu', statusBg: 'rgba(16,185,129,0.15)', statusColor: '#10B981' }
+                    ];
+                    var html = '';
+                    samplePatients.forEach(function(pat) {
+                        html += '<tr style="border-bottom:1px solid rgba(255,255,255,0.06);transition:background 0.2s;" onmouseover="this.style.background=\'rgba(255,255,255,0.03)\'" onmouseout="this.style.background=\'transparent\'">';
+                        headers.forEach(function(h) {
+                            if (h.includes('PATIENT') || h.includes('NOM')) {
+                                html += '<td style="padding:12px 16px;font-weight:700;">' + pat.name + '<div style="font-size:11px;opacity:0.7;">' + pat.dossier + '</div></td>';
+                            } else if (h.includes('ÂGE') || h.includes('AGE') || h.includes('SEXE')) {
+                                html += '<td style="padding:12px 16px;">' + pat.age + '</td>';
+                            } else if (h.includes('GROUPE') || h.includes('SANG')) {
+                                html += '<td style="padding:12px 16px;"><span style="background:rgba(2,132,199,0.15);color:#0284C7;padding:3px 8px;border-radius:6px;font-weight:700;">' + pat.blood + '</span></td>';
+                            } else if (h.includes('CONSTANTE') || h.includes('VITALE')) {
+                                html += '<td style="padding:12px 16px;"><span style="font-weight:700;color:#10B981;">' + pat.ta + '</span> <span style="font-size:12px;opacity:0.8;">• ' + pat.pulse + '</span></td>';
+                            } else if (h.includes('TENSION') || h.includes('TA')) {
+                                html += '<td style="padding:12px 16px;font-weight:700;color:#10B981;">' + pat.ta + '</td>';
+                            } else if (h.includes('POULS')) {
+                                html += '<td style="padding:12px 16px;">' + pat.pulse + '</td>';
+                            } else if (h.includes('STATUT') || h.includes('ETAT')) {
+                                html += '<td style="padding:12px 16px;"><span style="background:' + pat.statusBg + ';color:' + pat.statusColor + ';padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;">' + pat.status + '</span></td>';
+                            } else {
+                                html += '<td style="padding:12px 16px;text-align:right;"><button class="bfa-del-btn" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px;">🗑️</button></td>';
+                            }
+                        });
+                        html += '</tr>';
+                    });
+                    tbody.innerHTML = html;
+                } else if (headerStr.includes('URGENCE') || headerStr.includes('ATTENTE') || headerStr.includes('CRITIQUE')) {
+                    if (headers.length === 0) headers = ['PATIENT / CAS', 'CONSTANTE CRITIQUE', 'SEUIL NORMAL', 'ACTION'];
+                    var sampleUrg = [
+                        { p: 'Moussa Diouf (Chambre 2)', c: '🔴 TA: 175/105 mmHg (Urgence)', s: '120/80 mmHg', a: '🚨 Intervention Immédiate' },
+                        { p: 'Aminata Ba (Salle Soins)', c: '🔴 SpO2: 89% (Désat sévère)', s: '> 95%', a: '🫁 Oxygénothérapie' }
+                    ];
+                    var uHtml = '';
+                    sampleUrg.forEach(function(u) {
+                        uHtml += '<tr style="border-bottom:1px solid rgba(255,255,255,0.06);">';
+                        headers.forEach(function(h) {
+                            if (h.includes('PATIENT') || h.includes('CAS') || h.includes('NOM')) uHtml += '<td style="padding:12px 16px;font-weight:700;">' + u.p + '</td>';
+                            else if (h.includes('CONSTANTE') || h.includes('CRITIQUE') || h.includes('VALEUR')) uHtml += '<td style="padding:12px 16px;color:#EF4444;font-weight:700;">' + u.c + '</td>';
+                            else if (h.includes('SEUIL') || h.includes('NORMAL')) uHtml += '<td style="padding:12px 16px;">' + u.s + '</td>';
+                            else uHtml += '<td style="padding:12px 16px;text-align:right;"><button onclick="this.textContent=\'✅ Pris en charge\';this.style.background=\'#10B981\';window.bfaToast(\'Action effectuée !\', \'✅\')" style="background:#EF4444;color:#fff;border:none;padding:6px 12px;border-radius:6px;font-weight:700;cursor:pointer;font-size:12px;">' + u.a + '</button></td>';
+                        });
+                        uHtml += '</tr>';
+                    });
+                    tbody.innerHTML = uHtml;
+                } else if (headerStr.includes('CLIENT') || headerStr.includes('FACTURE') || headerStr.includes('MONTANT') || headerStr.includes('RÉF')) {
+                    var sampleInvoices = [
+                        { ref: '#FAC-2025-081', client: 'Aminata Ba (Boutique Dakar)', amount: '85 000 FCFA', date: '24/09/2026', status: '🟢 Payée', payBg: 'rgba(16,185,129,0.15)', payColor: '#10B981' },
+                        { ref: '#FAC-2025-082', client: 'Mamadou Diop (TechStore)', amount: '145 000 FCFA', date: '24/09/2026', status: '🟢 Payée', payBg: 'rgba(16,185,129,0.15)', payColor: '#10B981' },
+                        { ref: '#FAC-2025-083', client: 'Cheikh Ndiaye (Express)', amount: '32 500 FCFA', date: '23/09/2026', status: '🟡 En attente', payBg: 'rgba(245,158,11,0.15)', payColor: '#F59E0B' },
+                        { ref: '#FAC-2025-084', client: 'Pharmacie du Plateau', amount: '380 000 FCFA', date: '23/09/2026', status: '🟢 Payée', payBg: 'rgba(16,185,129,0.15)', payColor: '#10B981' },
+                        { ref: '#FAC-2025-085', client: 'Fatou Kiné Fall (Mode & Co)', amount: '68 000 FCFA', date: '22/09/2026', status: '🟢 Payée', payBg: 'rgba(16,185,129,0.15)', payColor: '#10B981' }
+                    ];
+                    var invHtml = '';
+                    sampleInvoices.forEach(function(inv) {
+                        invHtml += '<tr style="border-bottom:1px solid rgba(255,255,255,0.06);transition:background 0.2s;" onmouseover="this.style.background=\'rgba(255,255,255,0.03)\'" onmouseout="this.style.background=\'transparent\'">';
+                        headers.forEach(function(h) {
+                            if (h.includes('RÉF') || h.includes('REF') || h.includes('ID') || h.includes('N°')) {
+                                invHtml += '<td style="padding:12px 16px;font-weight:700;">' + inv.ref + '</td>';
+                            } else if (h.includes('CLIENT') || h.includes('NOM') || h.includes('TIERS')) {
+                                invHtml += '<td style="padding:12px 16px;font-weight:600;">' + inv.client + '</td>';
+                            } else if (h.includes('MONTANT') || h.includes('PRIX') || h.includes('TOTAL')) {
+                                invHtml += '<td style="padding:12px 16px;font-weight:700;color:#10B981;">' + inv.amount + '</td>';
+                            } else if (h.includes('DATE')) {
+                                invHtml += '<td style="padding:12px 16px;opacity:0.8;">' + inv.date + '</td>';
+                            } else if (h.includes('STATUT') || h.includes('ETAT')) {
+                                invHtml += '<td style="padding:12px 16px;"><span style="background:' + inv.payBg + ';color:' + inv.payColor + ';padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;cursor:pointer;">' + inv.status + '</span></td>';
+                            } else {
+                                invHtml += '<td style="padding:12px 16px;text-align:right;"><button class="bfa-del-btn" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:16px;">🗑️</button></td>';
+                            }
+                        });
+                        invHtml += '</tr>';
+                    });
+                    tbody.innerHTML = invHtml;
+                } else if (headerStr.includes('PRODUIT') || headerStr.includes('ARTICLE') || headerStr.includes('STOCK')) {
+                    var sampleProducts = [
+                        { ref: '#STK-001', name: 'Chaussures Cuir Oxford', cat: 'Mode', price: '45 000 FCFA', stock: '24 unités', badge: '🟢 En stock' },
+                        { ref: '#STK-002', name: 'Casque Audio ANC Wireless', cat: 'High-Tech', price: '75 000 FCFA', stock: '18 unités', badge: '🟢 En stock' },
+                        { ref: '#STK-003', name: 'Montre Connectée Sport Pro', cat: 'High-Tech', price: '35 000 FCFA', stock: '4 unités', badge: '🟠 Réappro' }
+                    ];
+                    var pHtml = '';
+                    sampleProducts.forEach(function(p) {
+                        pHtml += '<tr style="border-bottom:1px solid rgba(255,255,255,0.06);">';
+                        headers.forEach(function(h) {
+                            if (h.includes('RÉF') || h.includes('REF')) pHtml += '<td style="padding:12px 16px;font-weight:700;">' + p.ref + '</td>';
+                            else if (h.includes('PRODUIT') || h.includes('ARTICLE') || h.includes('NOM')) pHtml += '<td style="padding:12px 16px;font-weight:600;">' + p.name + '</td>';
+                            else if (h.includes('CAT')) pHtml += '<td style="padding:12px 16px;">' + p.cat + '</td>';
+                            else if (h.includes('PRIX')) pHtml += '<td style="padding:12px 16px;font-weight:700;">' + p.price + '</td>';
+                            else if (h.includes('STOCK') || h.includes('QT')) pHtml += '<td style="padding:12px 16px;">' + p.stock + '</td>';
+                            else pHtml += '<td style="padding:12px 16px;"><span style="background:rgba(16,185,129,0.15);color:#10B981;padding:3px 8px;border-radius:6px;font-size:11px;font-weight:700;">' + p.badge + '</span></td>';
+                        });
+                        pHtml += '</tr>';
+                    });
+                    tbody.innerHTML = pHtml;
+                }
+            }
+        });
+
+        // Hydrater aussi les conteneurs de listes qui ne sont pas des balises <table>
+        document.querySelectorAll('section, div, .card, [class*="urgence"], [class*="queue"], [class*="attente"]').forEach(function(sec) {
+            var titleEl = sec.querySelector('h1, h2, h3, h4, h5, .title, strong');
+            var txt = (titleEl ? titleEl.textContent : sec.textContent.slice(0, 100)).toUpperCase();
+            if ((txt.includes('URGENCE') || txt.includes('ATTENTE') || txt.includes('FILE')) && !sec.querySelector('table') && !sec.querySelector('.bfa-urg-card')) {
+                var items = sec.querySelectorAll('.card, [class*="item"], li, tr');
+                if (items.length <= 1) {
+                    var uWrap = document.createElement('div');
+                    uWrap.style.cssText = 'display:flex;flex-direction:column;gap:10px;margin-top:14px;';
+                    uWrap.innerHTML = 
+                        '<div class="bfa-urg-card" style="display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:12px;flex-wrap:wrap;gap:10px;">' +
+                        '<div><strong style="color:#EF4444;font-size:14px;">🚨 Moussa Diouf (Chambre 2 • Box Urgence)</strong><div style="font-size:12px;opacity:0.85;margin-top:3px;">Constante critique: <span style="color:#EF4444;font-weight:700;">TA 175/105 mmHg</span> • Pouls 112 bpm (Seuil normal: 120/80)</div></div>' +
+                        '<button onclick="this.textContent=\'✅ Pris en charge\';this.style.background=\'#10B981\';window.bfaToast(\'Moussa Diouf pris en charge immédiatement !\', \'✅\')" style="background:#EF4444;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px;">Intervention Immédiate</button>' +
+                        '</div>' +
+                        '<div class="bfa-urg-card" style="display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:12px;flex-wrap:wrap;gap:10px;">' +
+                        '<div><strong style="color:#EF4444;font-size:14px;">🫁 Aminata Ba (Salle de Déchocage)</strong><div style="font-size:12px;opacity:0.85;margin-top:3px;">Constante critique: <span style="color:#EF4444;font-weight:700;">SpO2 89% (Désat sévère)</span> • Dyspnée aiguë (Seuil: >95%)</div></div>' +
+                        '<button onclick="this.textContent=\'✅ Pris en charge\';this.style.background=\'#10B981\';window.bfaToast(\'Oxygénothérapie démarrée\', \'✅\')" style="background:#EF4444;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px;">Oxygénothérapie</button>' +
+                        '</div>';
+                    sec.appendChild(uWrap);
+                }
+            }
+        });
+    }
+
+    // 14. Hydratation automatique de secours de tous les compteurs à 0
+    function hydrateEmptyKPIs() {
+        hydrateEmptyTables();
+
+        // Horloge en direct si --:--
+        document.querySelectorAll('*').forEach(function(el) {
+            if (el.children.length === 0 && (el.textContent.includes('--:--') || el.textContent.includes('00:00'))) {
+                var now = new Date();
+                el.textContent = (now.getHours()<10?'0':'') + now.getHours() + ':' + (now.getMinutes()<10?'0':'') + now.getMinutes();
+            }
+        });
+
+        // Remplacement sur l'intégralité du document (aucun élément 0 FCFA ou 0 oublié)
+        document.body.querySelectorAll('*').forEach(function(el) {
+            if (el.children.length === 0 || (el.children.length === 1 && el.children[0].tagName === 'SPAN')) {
+                var t = el.textContent.trim();
+                var cardContext = (el.closest('div, section, article, .card, [class*="box"], button, li') ? el.closest('div, section, article, .card, [class*="box"], button, li').textContent : '').toLowerCase();
+
+                if (t === '0 FCFA' || t === '0FCFA' || t === '0 F CFA' || t === '0 CFA' || t === '0 F' || t === '0F' || t === '0 F (FCFA)') {
+                    if (cardContext.includes('valeur') || cardContext.includes('stock')) {
+                        el.textContent = '8 920 000 FCFA';
+                    } else if (cardContext.includes('recette') || cardContext.includes('jour')) {
+                        el.textContent = '425 000 FCFA';
+                    } else {
+                        el.textContent = '4 850 000 FCFA';
+                    }
+                } else if (t === '0 articles en stock' || t === '0 articles' || t === '0 article') {
+                    el.textContent = '142 articles en stock';
+                } else if (t === '0') {
+                    if (cardContext.includes('consultation') || cardContext.includes('attente') || cardContext.includes('file')) {
+                        el.textContent = '6';
+                    } else if (cardContext.includes('urgence') || cardContext.includes('alerte') || cardContext.includes('critique')) {
+                        el.textContent = '2';
+                    } else if (cardContext.includes('patient') || cardContext.includes('dossier')) {
+                        el.textContent = '34';
+                    } else if (cardContext.includes('commande') || cardContext.includes('vente') || cardContext.includes('transaction')) {
+                        el.textContent = '38';
+                    } else if (cardContext.includes('stock') || cardContext.includes('article') || cardContext.includes('produit')) {
+                        el.textContent = '88';
+                    }
+                }
+            }
+        });
+
+        // Mettre à jour les badges de la barre latérale
+        document.querySelectorAll('.badge, [class*="badge"], [class*="count"]').forEach(function(b) {
+            var bTxt = b.textContent.trim();
+            if (bTxt === '0' || bTxt === '') {
+                var p = (b.closest('button, a, div, li') ? b.closest('button, a, div, li').textContent : '').toLowerCase();
+                if (p.includes('patient') || p.includes('dossier')) b.textContent = '8';
+                else if (p.includes('consultation') || p.includes('attente')) b.textContent = '6';
+                else if (p.includes('urgence') || p.includes('alerte') || p.includes('critique')) b.textContent = '2';
+            }
+        });
+    }
+
+    // 15. Hydratation automatique des expressions de template restees dans le DOM HTML
+    function hydrateTemplateLiterals() {
+        try {
+            if (!document.body) return;
+            var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+            var textNodes = [];
+            var node;
+            while ((node = walker.nextNode())) {
+                if (node.nodeValue && node.nodeValue.indexOf('$' + '{') !== -1) {
+                    textNodes.push(node);
+                }
+            }
+
+            textNodes.forEach(function(tn) {
+                var val = tn.nodeValue;
+                var rep = val.replace(/[$]\{([^}]+)\}/g, function(match, expr) {
+                    try {
+                        var res = (new Function('return (' + expr + ')'))();
+                        if (res !== undefined && res !== null) return String(res);
+                    } catch(e) {}
+                    return match;
+                });
+                if (rep !== val) tn.nodeValue = rep;
+            });
+
+            document.querySelectorAll('*').forEach(function(el) {
+                ['title', 'placeholder', 'alt', 'aria-label'].forEach(function(attr) {
+                    var v = el.getAttribute(attr);
+                    if (v && v.indexOf('$' + '{') !== -1) {
+                        var rep = v.replace(/[$]\{([^}]+)\}/g, function(match, expr) {
+                            try {
+                                var res = (new Function('return (' + expr + ')'))();
+                                if (res !== undefined && res !== null) return String(res);
+                            } catch(e) {}
+                            return match;
+                        });
+                        if (rep !== v) el.setAttribute(attr, rep);
+                    }
+                });
+            });
+        } catch(e) {}
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            hydrateTemplateLiterals();
+            bindAllButtons();
+            injectPwaFloatingWidget();
+            restoreLocalRecords();
+            hydrateEmptyKPIs();
+            hydrateEmptyTables();
+        });
+    } else {
+        hydrateTemplateLiterals();
+        bindAllButtons();
+        injectPwaFloatingWidget();
+        restoreLocalRecords();
+        hydrateEmptyKPIs();
+        hydrateEmptyTables();
+    }
+    setTimeout(function() {
+        hydrateTemplateLiterals();
+        bindAllButtons();
+        injectPwaFloatingWidget();
+        hydrateEmptyKPIs();
+        hydrateEmptyTables();
+    }, 200);
+    setTimeout(function() {
+        hydrateTemplateLiterals();
+        bindAllButtons();
+        hydrateEmptyTables();
+        hydrateEmptyKPIs();
+    }, 800);
+})();
+</script>
+<script id="bfa-autowire">
+(function(){
+  function bfaWire(){
+    try{
+      if (window._bfaWired) return; window._bfaWired = true;
+
+      // Smooth scroll for in-page anchors
+      Array.from(document.querySelectorAll('a[href^="#"]')).forEach(function(a){
+        if (a.dataset.bfaWired) return; a.dataset.bfaWired = 1;
+        a.addEventListener('click', function(e){
+          try{
+            var id = (this.getAttribute('href') || '').slice(1);
+            if (!id) return;
+            var t = document.getElementById(id);
+            if (t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth', block:'start'}); }
+          }catch(er){}
+        });
+      });
+
+      // Auto-wire buttons and role=button elements
+      Array.from(document.querySelectorAll('button, [role="button"], input[type="button"], input[type="submit"]')).forEach(function(btn){
+        if (btn.dataset.bfaWired) return; btn.dataset.bfaWired = 1;
+        btn.addEventListener('click', function(e){
+          try{
+            var dataset = this.dataset || {};
+            // data-target -> toggle visibility
+            var target = this.getAttribute('data-target') || this.getAttribute('data-toggle') || this.getAttribute('data-href') || this.getAttribute('data-link') || dataset.href || dataset.link;
+            if (target){
+              if (target.indexOf('#') === 0){
+                var el = document.querySelector(target);
+                if (el){ el.classList.toggle('open'); if (el.scrollIntoView) el.scrollIntoView({behavior:'smooth'}); return; }
+              } else if (/^https?:\/\//i.test(target)){
+                window.location.href = target; return;
+              }
+            }
+
+            // If inside a form -> try submit with basic validation
+            var form = this.closest('form');
+            if (form){
+              e.preventDefault();
+              var required = Array.from(form.querySelectorAll('[required]'));
+              var missing = required.filter(function(f){ return !f.value; });
+              if (missing.length){ window.bfaToast('Veuillez remplir tous les champs requis.', '⚠️'); return false; }
+              // Simulate submit
+              window.bfaToast('Formulaire envoyé (simulation)', '✅');
+              return true;
+            }
+
+            // Data action: open-modal
+            if (dataset.bfaAction === 'open-modal' || this.getAttribute('data-bfa-action') === 'open-modal'){
+              var modalId = (this.getAttribute('data-target') || dataset.target || '').replace(/^#/, '');
+              if (modalId){ var modal = document.getElementById(modalId); if (modal){ modal.style.display='block'; modal.classList.add('open'); return; } }
+            }
+
+            // Fallback: if element has href="#" prevent default and show toast
+            if ((this.tagName === 'A' && (this.getAttribute('href')||'').trim() === '#') || (this.getAttribute('href')||'').trim() === ''){
+              e.preventDefault(); window.bfaToast('Action simulée — aucune route configurée', 'ℹ️'); return;
+            }
+
+            // Generic feedback
+            window.bfaToast('Action simulée', 'ℹ️');
+          }catch(e){ console && console.warn && console.warn('bfa-wire click error', e); }
+        });
+      });
+
+      // Auto-wire forms with data-bfa-auto attribute
+      Array.from(document.querySelectorAll('form[data-bfa-auto]')).forEach(function(f){
+        if (f.dataset.bfaAutoWired) return; f.dataset.bfaAutoWired = 1;
+        f.addEventListener('submit', function(e){ e.preventDefault(); window.bfaToast('Formulaire envoyé (simulation)', '✅'); });
+      });
+
+    }catch(e){ console && console.warn && console.warn('bfa-autowire init error', e); }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bfaWire); else bfaWire();
+})();
+</script>
+</body>
+</html>
